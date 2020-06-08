@@ -3,6 +3,9 @@ package fr.afpa.assosoft.service;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -53,20 +56,25 @@ public class AssociationServiceImpl implements IAssociationService {
 	@Autowired
 	private MediaRepository mediaRepository;
 
-	private Media uploadImageAsso(MultipartFile retrievedFile) throws IOException {
+	private Media uploadImageAsso(MultipartFile retrievedFile)
+			throws IOException {
 		Media assoImage = new Media();
 		// Modification de l'url de la Photo
 		System.out.println(retrievedFile.getOriginalFilename());
-		String[] fileNameArray = retrievedFile.getOriginalFilename().split("\\.");
+		String[] fileNameArray = retrievedFile.getOriginalFilename()
+				.split("\\.");
 		assoImage.setMediaUrl(fileNameArray[0]);
 		String newUrl = assoImage.getMediaUrl();
 		// Copie du fichier dans le répertoire uploads
 		Files.write(
-				Paths.get("E://assosoft/assosoft_v5.2/src/main/resources/static/images/association/" + newUrl + ".jpg"),
+				Paths.get(
+						"E://assosoft/assosoft_v5.2/src/main/resources/static/images/association/"
+								+ newUrl + ".jpg"),
 				retrievedFile.getBytes());
 		assoImage.setMediaPath("images/association/" + newUrl + ".jpg");
 		assoImage.setMediaUrl(
-				"E://assosoft/assosoft_v5.2/src/main/resources/static/images/association/" + newUrl + ".jpg");
+				"E://assosoft/assosoft_v5.2/src/main/resources/static/images/association/"
+						+ newUrl + ".jpg");
 		assoImage.setMediaTitre(newUrl);
 		return assoImage;
 	}
@@ -77,8 +85,10 @@ public class AssociationServiceImpl implements IAssociationService {
 	}
 
 	@Override
-	public Page<Association> rechercherNomCateg(String rc, int pageAffichee, int size) {
-		return assoRepository.rechercherNomCateg(rc, PageRequest.of(pageAffichee, size));
+	public Page<Association> rechercherNomCateg(String rc,
+			int pageAffichee, int size) {
+		return assoRepository.rechercherNomCateg(rc,
+				PageRequest.of(pageAffichee, size));
 	}
 
 	@Override
@@ -102,13 +112,17 @@ public class AssociationServiceImpl implements IAssociationService {
 	}
 
 	@Override
-	public Page<Association> rechercherLocalite(String selectLocalite, int page, int size) {
-		return assoRepository.rechercheSelectLocalite(selectLocalite, PageRequest.of(page, size));
+	public Page<Association> rechercherLocalite(String selectLocalite,
+			int page, int size) {
+		return assoRepository.rechercheSelectLocalite(selectLocalite,
+				PageRequest.of(page, size));
 	}
 
 	@Override
-	public Page<Association> rechercherCategorie(String selectCateg, int page, int size) {
-		return assoRepository.rechercheSelectCategorie(selectCateg, PageRequest.of(page, size));
+	public Page<Association> rechercherCategorie(String selectCateg,
+			int page, int size) {
+		return assoRepository.rechercheSelectCategorie(selectCateg,
+				PageRequest.of(page, size));
 	}
 
 	@Override
@@ -127,13 +141,16 @@ public class AssociationServiceImpl implements IAssociationService {
 	}
 
 	@Override
-	public void saveAssociation(InscriptionAsso inscriptionAsso, MultipartFile file) throws IOException {
+	public void saveAssociation(InscriptionAsso inscriptionAsso,
+			MultipartFile file) throws IOException {
 		// Récupération de la villeAdmin
 		Ville villeAdmin = inscriptionAsso.getVilleAdmin();
-		if (null == villeRepository.recupererVilleNom(villeAdmin.getVilleNom())) {
+		if (null == villeRepository
+				.recupererVilleNom(villeAdmin.getVilleNom())) {
 			villeRepository.save(villeAdmin);
 		} else {
-			villeAdmin = villeRepository.findByVilleNom(villeAdmin.getVilleNom());
+			villeAdmin = villeRepository
+					.findByVilleNom(villeAdmin.getVilleNom());
 			villeRepository.save(villeAdmin);
 		}
 
@@ -151,11 +168,13 @@ public class AssociationServiceImpl implements IAssociationService {
 
 		// Récupération de la catégorie
 		Categorie categorie = inscriptionAsso.getCategorieAsso();
-		if (null == categorieRepository.rechercherCategorieNom(categorie.getCatIntitule())) {
+		if (null == categorieRepository
+				.rechercherCategorieNom(categorie.getCatIntitule())) {
 			System.out.println(categorie);
 			categorieRepository.save(categorie);
 		} else {
-			categorie = categorieRepository.rechercherCategorieNom(categorie.getCatIntitule());
+			categorie = categorieRepository
+					.rechercherCategorieNom(categorie.getCatIntitule());
 			categorieRepository.save(categorie);
 		}
 
@@ -167,10 +186,12 @@ public class AssociationServiceImpl implements IAssociationService {
 
 		// Récupération de la villeAsso
 		Ville villeAsso = inscriptionAsso.getVilleAsso();
-		if (null == villeRepository.recupererVilleNom(villeAsso.getVilleNom())) {
+		if (null == villeRepository
+				.recupererVilleNom(villeAsso.getVilleNom())) {
 			villeRepository.save(villeAsso);
 		} else {
-			villeAsso = villeRepository.findByVilleNom(villeAsso.getVilleNom());
+			villeAsso = villeRepository
+					.findByVilleNom(villeAsso.getVilleNom());
 			villeRepository.save(villeAsso);
 		}
 
@@ -202,8 +223,10 @@ public class AssociationServiceImpl implements IAssociationService {
 	}
 
 	@Override
-	public Page<Association> rechercherCategorieLocalite(String localite, String categorie, int page, int size) {
-		return assoRepository.rechercheSelectsCategLocalite(localite, categorie, PageRequest.of(page, size));
+	public Page<Association> rechercherCategorieLocalite(
+			String localite, String categorie, int page, int size) {
+		return assoRepository.rechercheSelectsCategLocalite(localite,
+				categorie, PageRequest.of(page, size));
 	}
 
 }

@@ -1,13 +1,14 @@
-/*!
- * Start Bootstrap - Heroic Features (https://startbootstrap.com/template-overviews/heroic-features)
- * Copyright 2013-2019 Start Bootstrap
- * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap-heroic-features/blob/master/LICENSE)
- */
 body {
   padding-top: 45pt;
   background-image: url("../images/custom/backgroundRGB-21-156-249.png");
   background-repeat: repeat;
+  font-family: arial;
 }
+
+.list-unstyled li {
+    margin-bottom: 17px !important;
+}
+
 
 img#logo {
 	max-height: 40pt;
@@ -58,7 +59,7 @@ div#recherche {
 }
 
 header {
-	background-image: url(../images/custom/coverAssosoft.png);
+	background-image: url(../images/custom/coverAssosoft.jpg);
 	background-size: 100% 100%;
 	backgroud-repeat: no-repeat;
 }
@@ -208,10 +209,13 @@ input#titleFormConnexion, input#titleFormInscription {
     width: 95%;
     background-color: rgb(58,58,56);
     font:  14pt Garamond, sans-serif;
+    margin: 10pt;
 }
 
-#informations, #services, #liens {
-    margin: 10pt;
+#informations .card-body, #services .card-body, #liens .card-body {
+    font-family: arial;
+    text-align: left;
+    color: #fff;
 }
 
 #rights {

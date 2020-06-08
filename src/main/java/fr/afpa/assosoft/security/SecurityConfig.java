@@ -46,9 +46,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.formLogin();
-		http.authorizeRequests().antMatchers("/dashboard/2*")
+		http.authorizeRequests().antMatchers("/dashboard/2/*")
 				.hasRole("Administrateur plateforme");
-		http.authorizeRequests().antMatchers("/dashboard/1*")
+		http.authorizeRequests().antMatchers("/dashboard/1/*")
 				.hasRole("Administrateur association");
 	}
 

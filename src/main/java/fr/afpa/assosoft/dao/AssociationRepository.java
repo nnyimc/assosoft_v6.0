@@ -11,17 +11,25 @@ import fr.afpa.assosoft.entities.Association;
 
 //@RepositoryRestResource
 @Repository
-public interface AssociationRepository extends JpaRepository<Association, Long> {
+public interface AssociationRepository
+		extends JpaRepository<Association, Long> {
 	@Query("SELECT a FROM Association a where a.categorie.catIntitule like :x or a.assoNom like :x")
-	public Page<Association> rechercherNomCateg(@Param("x") String rc, Pageable pageable);
+	public Page<Association> rechercherNomCateg(@Param("x") String rc,
+			Pageable pageable);
 
 	@Query("SELECT a FROM Association a where a.ville.villeNom like :x")
-	public Page<Association> rechercheSelectLocalite(@Param("x") String selectLocalite, Pageable pageable);
+	public Page<Association> rechercheSelectLocalite(
+			@Param("x") String selectLocalite, Pageable pageable);
 
 	@Query("SELECT a FROM Association a where a.categorie.catIntitule like :x")
-	public Page<Association> rechercheSelectCategorie(@Param("x") String selectCateg, Pageable pageable);
+	public Page<Association> rechercheSelectCategorie(
+			@Param("x") String selectCateg, Pageable pageable);
 
 	@Query("SELECT a FROM Association a where a.ville.villeNom like :x and a.categorie.catIntitule like :y")
-	public Page<Association> rechercheSelectsCategLocalite(@Param("x") String selectLocalite,
+	public Page<Association> rechercheSelectsCategLocalite(
+			@Param("x") String selectLocalite,
 			@Param("y") String selectCategorie, Pageable pageable);
+
+	@Query("SELECT a FROM Association a ORDER BY a.id DESC")
+	public Page<Association> recupererDerniereAsso(Pageable pageable);
 }
