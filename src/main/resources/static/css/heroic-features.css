@@ -1,0 +1,223 @@
+/*!
+ * Start Bootstrap - Heroic Features (https://startbootstrap.com/template-overviews/heroic-features)
+ * Copyright 2013-2019 Start Bootstrap
+ * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap-heroic-features/blob/master/LICENSE)
+ */
+body {
+  padding-top: 45pt;
+  background-image: url("../images/custom/backgroundRGB-21-156-249.png");
+  background-repeat: repeat;
+}
+
+img#logo {
+	max-height: 40pt;
+}
+
+
+input.navSection {
+	height: 19pt;
+}
+
+select, input {
+	width: 100%;
+}
+
+button.navSection {
+	padding: 0 0.25em;
+	vertical-align: initial;
+	height: 19pt;
+}
+
+div#recherche {
+	margin-right: 15%;
+}
+
+#submitSearch:hover {
+	background-color: white;
+	color:  rgb(21,156,249)
+}
+
+
+#noResults{
+	margin: 3% 0;
+	height: 15em;
+	width: 25em;
+	text-align: center;
+	background: white;
+	border: 1pt solid rgb(47, 47, 209);
+}
+
+#noResults h1 {
+	margin: 3% 0;
+	color: rgb(246, 139, 31);
+}
+
+
+#noResults p {
+	margin: 8% 0;
+}
+
+header {
+	background-image: url(../images/custom/coverAssosoft.png);
+	background-size: 100% 100%;
+	backgroud-repeat: no-repeat;
+}
+
+header h1, header h2, header p, div#listingTitle h1 {
+	color: white;
+	text-shadow: 1pt 1pt 2pt black;
+}
+
+header h1 {
+	color: rgb(249,144,107);
+}
+
+header p {
+	font-size: 14pt;
+}
+
+div#listingTitle h1 {
+	color: rgb(249,144,107);
+	margin-top: 24pt;
+	text-align: center;
+	margin-bottom: 22pt;
+}
+
+#pagination {
+	margin: 4% 0;
+}
+
+#pageList, .pageLink {
+	list-type-style: none;
+	text-align: center;
+	display: inline;
+	margin: .5%;
+}
+
+.pageLink {
+	background-color: white;
+	color: black;
+	padding:  .25% .5%;
+	border-radius: 5%;
+} 
+
+.pageLink a:hover {
+	text-decoration: none;
+	color: rgb(243,112,75);
+}
+
+#connexionTitle, #inscriptionTitle {
+	font-size: 24pt;
+	font-weight: bolder;
+	color: black;
+	text-align: center;
+	margin-bottom: 6pt;
+}
+
+#titleFormConnexion {
+	margin: 14% 20%;
+}
+
+#titleFormInscription {
+	margin: 5% 20%;
+}
+
+#titleFormConnexion, #titleFormInscription {
+	padding: 5%;
+	border: 1pt solid orange;
+	border-radius: 2%;
+	background-color: white;
+	text-align: justify;
+}
+
+div#noResults {
+	margin : 0 30%;
+}
+
+fieldset {
+	margin: 2% 0;
+}
+
+.legend {
+	color: orange;
+}
+
+.actionsDiv {
+	display: inline-block;
+	text-align:center;
+	margin: 0 15%;
+}
+
+.erreur {
+	color: orangered;
+}
+
+#actionsDiv input{
+	width: 25%;
+}
+
+label#titleFormConnexion, label#titleFormInscription {
+    text-align: left;
+}
+
+input#titleFormConnexion, input#titleFormInscription {
+   float: right;
+}
+
+
+.pageLink a:visited {
+	text-align:center;
+	color: orange;
+	background-color: teal;
+}
+
+#assoDetails h1{
+	text-align: center;
+	font: 40pt Garamond, sans-serif;
+	color: chocolate;
+    background-color: dimgray;
+}
+
+#imageAssoDetails {
+	width: 100%;
+}
+
+#outils {
+	padding-top: 18pt;
+}
+
+#informations, #services, #liens {
+	width:100%;
+	text-align: left;
+	color:white;
+	margin-bottom: 2%;
+}
+
+#informations a, #services a, #liens a {
+	text-decoration: none;
+}
+
+#informations h5, #services h5, #liens h5 {
+	text-align: center;
+	color: orange;
+}
+
+#informations, #services, #liens {
+    color: chocolate;
+    text-align: center;
+    width: 95%;
+    background-color: rgb(58,58,56);
+    font:  14pt Garamond, sans-serif;
+}
+
+#informations, #services, #liens {
+    margin: 10pt;
+}
+
+#rights {
+	display: inline;
+	color: white;
+	text-align: right;
+	margin-right: 2%;
+}
+

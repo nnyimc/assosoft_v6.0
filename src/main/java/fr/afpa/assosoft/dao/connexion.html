@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeLeaf.org">
+	<head>
+		<title>Assosoft - Accueil</title>
+		<meta charset="UTF-8"/>
+	    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+   		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          crossorigin="anonymous">
+		<link type="text/css" rel="stylesheet" href="../static/css/style.css" th:href="@{css/style.css}"/>
+	</head>
+	<body>
+		<div th:insert="/includes/navbar :: navbar"></div>
+		
+		<header th:insert="/includes/header :: header"></header>
+
+
+		<div id="main">
+			<div id="titleFormConnexion">
+				<div id="titleDiv">
+					<h1 id="connexionTitle">Connexion</h1>
+				</div>
+				<div id="formDiv">
+					<form id="connexion" method="POST" th:action="@{/index}" accept-charset="UTF-8" >
+						<div id="loginDiv">
+							<label for="login">Identifiant</label>
+							<input id="login" name="login" type="text"/>
+						</div>
+						<div id="passDiv">
+							<label for="pass">Mot de passe</label>
+							<input id="pass" name="pass" type="password"/>
+						</div>
+						<div id="actionsDiv">
+							<p><a id="passeOublie" href="passReset.html">mot de passe oublié ?</a></p>
+							<input type="reset" value="Réinitialiser"/>
+							<input type="submit" value="Envoyer"/>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+		<footer th:insert="/includes/footer :: footer"></footer>
+	</body>
+</html>

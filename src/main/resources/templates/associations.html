@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeLeaf.org">
+<head>
+<meta charset="UTF-8"/>
+<title>Liste des associations</title>
+</head>
+<body>
+	<h1>Liste Associations</h1>
+	<div>
+		<table>
+			<thead>
+				<tr>
+					<th>ID</th><th>Nom</th><th>Categorie</th><th>NumRNA</th><th>Email</th><th>Tel</th>
+					<th>Url</th><th>Ville</th><th>Admin</th><th>PhotoUrl</th><th>urlStatic</th><th>Photo</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="asso:${listeAsso}">
+					<td th:text="${asso.assoId}"></td>
+					<td th:text="${asso.assoNom}"></td>
+					<td th:text="${asso.categorie.catIntitule}"></td>
+					<td th:text="${asso.assoNumRNA}"></td>
+					<td th:text="${asso.assoMail}"></td>
+					<td th:text="${asso.assoTel}"></td>
+					<td th:text="${asso.assoUrl}"></td>
+					<td th:text="${asso.ville.villeNom}"></td>
+					<td th:text="${asso.admin.personneNom}"></td>
+					<td th:text="${asso.medias[0].mediaUrl}"></td>
+					<td th:text="${asso.medias[0].mediaPath}"></td>
+					<td><img th:src="${asso.medias[0].mediaPath}" style="width:10em; height:10em;"/></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</body>
+</html>
