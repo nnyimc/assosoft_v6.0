@@ -16,7 +16,7 @@ img#logo {
 
 
 input.navSection {
-	height: 19pt;
+	height: 16.5pt;
 }
 
 select, input {
@@ -24,9 +24,9 @@ select, input {
 }
 
 button.navSection {
-	padding: 0 0.25em;
+	padding: 0 1em;
 	vertical-align: initial;
-	height: 19pt;
+	height: 16pt;
 }
 
 div#recherche {

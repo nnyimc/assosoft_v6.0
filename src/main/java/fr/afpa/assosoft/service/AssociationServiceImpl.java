@@ -13,6 +13,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -55,12 +56,13 @@ public class AssociationServiceImpl implements IAssociationService {
 	private AdhesionRepository adhesionRepository;
 	@Autowired
 	private MediaRepository mediaRepository;
+	@Autowired
+	BCryptPasswordEncoder bPCE;
 
 	private Media uploadImageAsso(MultipartFile retrievedFile)
 			throws IOException {
 		Media assoImage = new Media();
 		// Modification de l'url de la Photo
-		System.out.println(retrievedFile.getOriginalFilename());
 		String[] fileNameArray = retrievedFile.getOriginalFilename()
 				.split("\\.");
 		assoImage.setMediaUrl(fileNameArray[0]);
@@ -71,7 +73,7 @@ public class AssociationServiceImpl implements IAssociationService {
 						"E://assosoft/assosoft_v5.2/src/main/resources/static/images/association/"
 								+ newUrl + ".jpg"),
 				retrievedFile.getBytes());
-		assoImage.setMediaPath("images/association/" + newUrl + ".jpg");
+		assoImage.setMediaPath("/images/association/" + newUrl + ".jpg");
 		assoImage.setMediaUrl(
 				"E://assosoft/assosoft_v5.2/src/main/resources/static/images/association/"
 						+ newUrl + ".jpg");
@@ -158,7 +160,8 @@ public class AssociationServiceImpl implements IAssociationService {
 		Personne admin = new Personne();
 		admin.setPersonneLogin(inscriptionAsso.getPersonneLogin());
 		admin.setPersonneMail(inscriptionAsso.getPersonneMail());
-		admin.setPersonneMdp(inscriptionAsso.getPersonneMdp());
+		admin.setPersonneMdp(
+				bPCE.encode(inscriptionAsso.getPersonneMdp()));
 		admin.setPersonneNom(inscriptionAsso.getPersonneNom());
 		admin.setPersonnePrenom(inscriptionAsso.getPersonnePrenom());
 		admin.setRole(new Role((long) 2, "Administrateur association"));
@@ -170,7 +173,6 @@ public class AssociationServiceImpl implements IAssociationService {
 		Categorie categorie = inscriptionAsso.getCategorieAsso();
 		if (null == categorieRepository
 				.rechercherCategorieNom(categorie.getCatIntitule())) {
-			System.out.println(categorie);
 			categorieRepository.save(categorie);
 		} else {
 			categorie = categorieRepository
@@ -208,6 +210,18 @@ public class AssociationServiceImpl implements IAssociationService {
 		association.setVille(villeAsso);
 		association.setCategorie(categorie);
 		assoRepository.save(association);
+
+		// Récupération de la dernière association
+		Page<Association> pageAsso = assoRepository
+				.recupererDerniereAsso(PageRequest.of(0, 1));
+
+		// Récupération du dernier média
+		Page<Media> pageMedia = mediaRepository
+				.recupererDernierMedia(PageRequest.of(0, 1));
+		media = pageMedia.getContent().get(0);
+
+		// Paramétrage de l'association
+		media.setAssociation(pageAsso.getContent().get(0));
 	}
 
 	@Override

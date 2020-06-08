@@ -43,7 +43,8 @@ public class AssosoftController {
 	private void traitementRecherches(Model model) {
 		String contenuRecherche = "", localite = "", categorie = "";
 		List<Ville> listeLocalites = assoService.recupererLocalites();
-		List<Categorie> listeCategories = assoService.recupererCategories();
+		List<Categorie> listeCategories = assoService
+				.recupererCategories();
 		model.addAttribute("contenuRecherche", contenuRecherche);
 		model.addAttribute("localiteChoisie", localite);
 		model.addAttribute("categorieChoisie", categorie);
@@ -51,7 +52,9 @@ public class AssosoftController {
 		model.addAttribute("listeCategories", listeCategories);
 	}
 
-	private void traitementRecherches(Model model, List<Categorie> listeCategories, String localite, String categorie) {
+	private void traitementRecherches(Model model,
+			List<Categorie> listeCategories, String localite,
+			String categorie) {
 		String contenuRecherche = "";
 		List<Ville> listeLocalites = assoService.recupererLocalites();
 		model.addAttribute("contenuRecherche", contenuRecherche);
@@ -61,7 +64,8 @@ public class AssosoftController {
 		model.addAttribute("listeCategories", listeCategories);
 	}
 
-	private void paginer(Model model, Page<Association> listeAsso, int page) {
+	private void paginer(Model model, Page<Association> listeAsso,
+			int page) {
 		model.addAttribute("listeAsso", listeAsso);
 		int[] arrPages = new int[listeAsso.getTotalPages()];
 		for (int i = 1; i <= arrPages.length; i++) {
@@ -76,7 +80,8 @@ public class AssosoftController {
 	 * plus de l'affichage de la page d'accueil
 	 */
 
-	private String checkListStatus(Page<Association> pageAsso, Model model) {
+	private String checkListStatus(Page<Association> pageAsso,
+			Model model) {
 		if (pageAsso.isEmpty()) {
 			int resultat = 0;
 			model.addAttribute("noResults", resultat);
@@ -86,7 +91,8 @@ public class AssosoftController {
 
 	// Methode retournant une vue de la page d'accueil
 	@GetMapping({ "/", "/index" })
-	public String afficherHomepage(Model model, @RequestParam(name = "page", defaultValue = "1") int page,
+	public String afficherHomepage(Model model,
+			@RequestParam(name = "page", defaultValue = "1") int page,
 			@RequestParam(name = "contenuRecherche", defaultValue = "") String contenuRecherche,
 			@RequestParam(name = "localite", defaultValue = "") String localite,
 			@RequestParam(name = "categorie", defaultValue = "") String categorie) {
@@ -94,21 +100,27 @@ public class AssosoftController {
 		// Initialisation de la page d'accueil
 		Page<Association> listeAsso = assoService.listerAsso(page - 1, 3);
 		if (!localite.contentEquals("")) {
-			List<Categorie> listeCategories = assoService.recupererCategoriesVille(localite);
+			List<Categorie> listeCategories = assoService
+					.recupererCategoriesVille(localite);
 			if (!categorie.contentEquals("")) {
-				listeAsso = assoService.rechercherCategorieLocalite(localite, categorie, page - 1, 3);
+				listeAsso = assoService.rechercherCategorieLocalite(localite,
+						categorie, page - 1, 3);
 			} else {
-				listeAsso = assoService.rechercherLocalite("%" + localite + "%", page - 1, 3);
+				listeAsso = assoService
+						.rechercherLocalite("%" + localite + "%", page - 1, 3);
 			}
-			traitementRecherches(model, listeCategories, localite, categorie);
+			traitementRecherches(model, listeCategories, localite,
+					categorie);
 			paginer(model, listeAsso, page);
 			checkListStatus(listeAsso, model);
 			return "index";
 		} else if (!contenuRecherche.contentEquals("")) {
-			listeAsso = assoService.rechercherNomCateg("%" + contenuRecherche + "%", page - 1, 3);
+			listeAsso = assoService.rechercherNomCateg(
+					"%" + contenuRecherche + "%", page - 1, 3);
 			checkListStatus(listeAsso, model);
 		} else if (!categorie.contentEquals("")) {
-			listeAsso = assoService.rechercherCategorie("%" + categorie + "%", page - 1, 3);
+			listeAsso = assoService
+					.rechercherCategorie("%" + categorie + "%", page - 1, 3);
 			checkListStatus(listeAsso, model);
 		}
 		paginer(model, listeAsso, page);
@@ -124,12 +136,13 @@ public class AssosoftController {
 	}
 
 	@PostMapping({ "/saveAssociation" })
-	public String inscrireAdminAssoEtAsso(@Valid @ModelAttribute("inscriptionAsso") InscriptionAsso inscriptionAsso,
-			@RequestParam("assoImage") MultipartFile assoImage, BindingResult bindingResult) throws IOException {
+	public String inscrireAdminAssoEtAsso(
+			@Valid @ModelAttribute("inscriptionAsso") InscriptionAsso inscriptionAsso,
+			@RequestParam("assoImage") MultipartFile assoImage,
+			BindingResult bindingResult) throws IOException {
 		if (bindingResult.hasErrors()) {
 			return "inscription";
 		}
-		System.out.println(bindingResult.hasErrors());
 		assoService.saveAssociation(inscriptionAsso, assoImage);
 		return "redirect:index";
 	}
@@ -144,7 +157,8 @@ public class AssosoftController {
 	}
 
 	@PostMapping({ "/saveAdherent" })
-	public String inscrireAdherent(@Valid Personne personne, BindingResult bindingResult) {
+	public String inscrireAdherent(@Valid Personne personne,
+			BindingResult bindingResult) {
 		if (bindingResult.hasErrors()) {
 			return "inscription";
 		}
@@ -162,7 +176,8 @@ public class AssosoftController {
 	}
 
 	@PostMapping("/save")
-	public String save(Model model, @Valid Personne pers, BindingResult bindingResult, Long id) {
+	public String save(Model model, @Valid Personne pers,
+			BindingResult bindingResult, Long id) {
 		Association association = assoService.recupererAsso(id);
 		Role roleadh = assoService.recupererRole(3L);
 		pers.setRole(roleadh);
