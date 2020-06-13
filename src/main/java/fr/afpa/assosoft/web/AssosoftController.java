@@ -172,10 +172,13 @@ public class AssosoftController {
 	}
 	
 	@GetMapping({ "/dashboard" })
-	public String afficherDashboard(Model model) {
-		traitementRecherches(model);
+	public String afficherDashboard(Model model, @RequestParam(name = "page", defaultValue = "1") int page) {
+		Page<Association> listeAsso = assoService.listerAsso(page - 1, 4);
 		int mode = 0;
 		model.addAttribute("authValue", mode);
+		model.addAttribute("listeAsso", listeAsso);
+		traitementRecherches(model);
+		paginer(model, listeAsso, page);
 		return "dashboard";
 	}
 

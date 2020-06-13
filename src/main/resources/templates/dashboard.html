@@ -32,33 +32,29 @@
 				<div class="container-fluid">
 
 					<!-- Page Heading -->
-					<div
-						class="d-sm-flex align-items-center justify-content-between mb-4">
-						<h1>Administration</h1>
+					<div id="dashboardDiv">
+						<h1 id="titleDashboard" class="shadow h-100 py-2">Administration</h1>
 					</div>
 
 					<!-- Content Row -->
 					<div class="row">
 
 						<!-- Association Card -->
-						<div class="col-xl-3 col-md-6 mb-4" th:each="asso:${listeAsso}">
-							<div class="card border-left-primary shadow h-100 py-2">
-								<a th:href="@{/assoDetail(id=${asso.assoId})}"> <img
-									class="card-img-top assoCover"
-									th:src="${asso.medias[0].mediaPath}" alt="">
-								</a>
+						<div id="assoCard" class="col-xl-3 col-md-6" th:each="asso:${listeAsso}">
+							<div class="card border-left-primary">
 								<div class="card-body">
+									<div class="text-xs font-weight-bold text-primary text-uppercase mb-1"
+												th:text="${asso.assoNom}"></div>
+									<a th:href="@{/assoDetail(id=${asso.assoId})}"> 
+									<img
+										class="card-img-top assoCover"
+										th:src="${asso.medias[0].mediaPath}" alt="">
+									</a>
 									<div class="row no-gutters align-items-center">
 										<div class="col mr-2">
-											<div
-												class="text-xs font-weight-bold text-primary text-uppercase mb-1"
-												th:text="${asso.assoNom}"></div>
-											<div class="h5 mb-0 font-weight-bold text-gray-800">Lorem
-												ipsum dolor sit amet, consectetur adipisicing elit. Sapiente
-												esse necessitatibus neque.</div>
 											<div class="card-footer">
-												<a th:href="@{/assoDetail(id=${asso.assoId})}"
-													class="btn btn-primary"> Voir profil </a>
+												<a th:href="@{/dltAsso(id=${asso.assoId})}"
+													class="btn btn-danger"> Supprimer </a>
 											</div>
 										</div>
 										<div class="col-auto">
@@ -76,7 +72,18 @@
 
 					</div>
 					<!-- End of Main Content -->
+					<div id="pagination" th:if="(${noResults}==null)">
+						<span>Page: </span>
+						<ul id="pageList" class="nav nav-pills">
+							<li class="pageLink" th:each="p:${arrPages}">
+							   <!-- Envoi d'une requête avec le numéro de la page en paramètre -->
+			                   <a th:href="@{index(page=${p})}" th:text="${p}"></a>
+			               </li>
+						</ul>
+					</div>
+					
 				</div>
+				
 			</div>
 		</div>
 		<!-- End of Content Wrapper -->

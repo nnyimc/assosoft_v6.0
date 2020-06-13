@@ -228,6 +228,19 @@ input#titleFormConnection, input#titleFormInscription {
 	text-align: center;
 }
 
+#dashboardDiv {
+	margin-top: 5%;
+}
+
+#titleDashboard {
+	color: orange;
+	text-align: center;
+}
+
+#assoCard {
+	text-align: center;
+}
+
 
 #rights {
 	display: inline;
