@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeLeaf.org" lang="fr">
+<meta charset="utf-8"/>
 
 <!-- Navigation -->
 <nav th:fragment="navbar" id="navbar"
@@ -59,7 +60,9 @@
 			</a></li>
 			<li class="nav-item"><a class="nav-link" href="/inscription" th:href="@{/inscription}">S'inscrire</a>
 			</li>
-			<li class="nav-item"><a class="nav-link" href="/connexion" th:href="@{/login}">Connexion</a>
+			<li class="nav-item" th:if="${authValue}==1"><a class="nav-link" href="/login" th:href="@{/login}">Connexion</a>
+			</li>
+			<li class="nav-item" th:if="${authValue}==0"><a class="nav-link" href="/logout" th:href="@{/logout}">Déconnexion</a>
 			</li>
 		</ul>
 	</div>

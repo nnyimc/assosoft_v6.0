@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="">
+<meta name="author" content="">
+<!-- Bootstrap core CSS -->
+<link href="vendor/bootstrap/css/bootstrap.min.css"
+	th:href="@{/vendor/bootstrap/css/bootstrap.min.css}" rel="stylesheet" />
+<!-- Custom styles for this template -->
+<link href="css/heroic-features.css"
+	th:href="@{/css/heroic-features.css}" rel="stylesheet" />
+<title>Administration</title>
+</head>
+<body id="page-top">
+
+	<!-- Page Wrapper -->
+	<div id="wrapper">
+
+		<nav th:insert="/includes/navbar :: navbar"></nav>
+
+		<!-- Content Wrapper -->
+		<div id="content-wrapper" class="d-flex flex-column">
+
+			<!-- Main Content -->
+			<div id="content">
+
+				<!-- Begin Page Content -->
+				<div class="container-fluid">
+
+					<!-- Page Heading -->
+					<div
+						class="d-sm-flex align-items-center justify-content-between mb-4">
+						<h1>Administration</h1>
+					</div>
+
+					<!-- Content Row -->
+					<div class="row">
+
+						<!-- Association Card -->
+						<div class="col-xl-3 col-md-6 mb-4" th:each="asso:${listeAsso}">
+							<div class="card border-left-primary shadow h-100 py-2">
+								<a th:href="@{/assoDetail(id=${asso.assoId})}"> <img
+									class="card-img-top assoCover"
+									th:src="${asso.medias[0].mediaPath}" alt="">
+								</a>
+								<div class="card-body">
+									<div class="row no-gutters align-items-center">
+										<div class="col mr-2">
+											<div
+												class="text-xs font-weight-bold text-primary text-uppercase mb-1"
+												th:text="${asso.assoNom}"></div>
+											<div class="h5 mb-0 font-weight-bold text-gray-800">Lorem
+												ipsum dolor sit amet, consectetur adipisicing elit. Sapiente
+												esse necessitatibus neque.</div>
+											<div class="card-footer">
+												<a th:href="@{/assoDetail(id=${asso.assoId})}"
+													class="btn btn-primary"> Voir profil </a>
+											</div>
+										</div>
+										<div class="col-auto">
+											<i class="fas fa-calendar fa-2x text-gray-300"></i>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<!-- Content Row -->
+
+						<div class="row"></div>
+						<!-- /.container-fluid -->
+
+					</div>
+					<!-- End of Main Content -->
+				</div>
+			</div>
+		</div>
+		<!-- End of Content Wrapper -->
+
+	</div>
+	<!-- End of Page Wrapper -->
+	<footer th:insert="/includes/footer :: footer"></footer>
+	<!-- Scroll to Top Button-->
+	<a class="scroll-to-top rounded" href="#page-top"> <i
+		class="fas fa-angle-up"></i>
+	</a>
+
+</body>
+</html>

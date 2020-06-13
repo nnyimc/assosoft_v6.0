@@ -2,7 +2,6 @@ package fr.afpa.assosoft.service;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 import java.util.Random;
 import java.util.stream.Stream;
 
@@ -192,10 +191,11 @@ class AssosoftInitServiceImpl implements IAssosoftInitService {
 			personne.setPersonneLogin(
 					(prenom + nom).replace(" ", "").toLowerCase());
 			// personne.setPersonneMdp(strAleatoire(10));
-
 			// Encodage du mot de passe
 			personne.setPersonneMdp(
-					bCPE.encode(personne.getPersonneLogin()));
+					bCPE.encode(personne.getPersonneLogin())
+				);
+			System.out.println(" Mot de passe: " + personne.getPersonneMdp());
 			personne.setPersonneMail(creaEmail(prenom, nom));
 			personne.setVille(villeAleatoire(villes));
 			personne.setStatut(statut);

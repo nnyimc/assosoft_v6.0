@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeLeaf.org">
+	<head>
+		<title>Assosoft - Inscription Association</title>
+		<meta charset="UTF-8"/>
+	    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+
+        <!-- Bootstrap core CSS -->
+		<link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
+		
+		<!-- Custom styles for this template -->
+		<link href="css/heroic-features.css" th:href="@{/css/heroic-features.css}" rel="stylesheet"/>
+	</head>
+	<body>
+		<nav th:insert="/includes/navbar :: navbar"></nav>
+		
+		<div id="main">
+			<div id="titleFormInscription">
+				<div id="titleDiv">
+					<h1 id="inscriptionTitle">Inscription Association</h1>
+				</div>
+				<div id="formDiv">
+					<form enctype="multipart/form-data" method="POST" id="inscriptionAsso"  th:action="@{/saveAssociation}" th:object="${inscriptionAsso}" accept-charset="UTF-8">
+						<fieldset>
+							<legend class="legend">Infos administrateur</legend>
+							<div id="nomDiv" class="form-group">
+								<label for="nom">Nom</label>
+								<input id="nom" type="text" class="form-control" th:field="*{personneNom}"/>
+								<span class="erreur" th:errors="*{personneNom}"></span>
+							</div>
+							<div id="prenomDiv" class="form-group">
+								<label for="prenom">Prénom</label>
+								<input id="prenom" type="text" class="form-control" th:field="*{personnePrenom}"/>
+								<span class="erreur" th:errors="*{personnePrenom}"></span>
+							</div>
+							<div id="loginDiv" class="form-group">
+								<label for="login">Identifiant</label>
+								<input id="login" type="text" class="form-control" th:field="*{personneLogin}"/>
+								<span class="erreur" th:errors="*{personneLogin}"></span>
+							</div>
+							<div id="passDiv" class="form-group">
+								<label for="pass">Mot de passe</label>
+								<input id="pass" type="password" class="form-control" th:field="*{personneMdp}"/>
+								<span class="erreur" th:errors="*{personneMdp}"></span>
+							</div>
+							<div id="passDiv" class="form-group">
+								<label for="confirmPass">Confirmation passe</label>
+								<input id="confirmPass" type="password" class="form-control" th:field="*{personneMdpRepeat}"/>
+								<span class="erreur" th:errors="*{personneMdp}"></span>
+							</div>
+							<div id="mailDiv" class="form-group">
+								<label for="mail">Email</label>
+								<input id="mail" type="email" class="form-control" th:field="*{personneMail}"/>
+								<span th:errors="*{personneMail}"></span>
+							</div>
+							<div id="villeDivAdmin" class="form-group">
+								<label for="villeAdmin">Ville</label>
+								<input id="villeAdmin" type="text" class="form-control" th:field="*{villeAdmin.villeNom}"/>
+								<span class="erreur" th:errors="*{villeAdmin.villeNom}"></span>
+							</div>  
+						</fieldset>
+						<fieldset>
+							<legend class="legend"> Infos association</legend>
+							<div id="assoImage" class="form-group">
+								<label for="assoImage">Image</label>
+								<input type="file" id="assoImage" name="assoImage"  th:field="*{assoImage}"/>
+								<span class="erreur" th:errors="*{assoImage}"></span>
+							</div>
+							<div id="assoNom" class="form-group">
+								<label for="assoNom">Nom</label>
+								<input id="assoNom" type="text" class="form-control" th:field="*{assoNom}"/>
+								<span class="erreur" th:errors="*{assoNom}"></span>
+							</div>
+							<div id="assoNumRNA" class="form-group">
+								<label for="assoNumRNA">Numéro RNA</label>
+								<input id="assoNumRNA" type="text" class="form-control" th:field="*{assoNumRNA}"/>
+								<span class="erreur" th:errors="*{assoNumRNA}"></span>
+							</div>
+							<div id="assoMail" class="form-group">
+								<label for="assoMail">Mail</label>
+								<input id="assoMail" type="email" class="form-control" th:field="*{assoMail}"/>
+								<span class="erreur" th:errors="*{assoMail}"></span>
+							</div>
+							<div id="assoTel" class="form-group">
+								<label for="assoTel">Téléphone</label>
+								<input id="assoTel" type="tel" class="form-control" th:field="*{assoTel}"/>
+								<span class="erreur" th:errors="*{assoTel}"></span>
+							</div>
+							<div id="assoUrl" class="form-group">
+								<label for="assoUrl">Site web</label>
+								<input id="assoUrl" type="url" class="form-control" th:field="*{assoUrl}"/>
+								<span class="erreur" th:errors="*{assoUrl}"></span>
+							</div>
+							<div id="villeDivAsso" class="form-group">
+								<label for="villeAsso">Ville</label>
+								<input id="villeAsso" type="text" class="form-control" th:field="*{villeAsso.villeNom}"/>
+								<span class="erreur" th:errors="*{villeAsso.villeNom}"></span>
+							</div>  
+							<div id="categorie" class="form-group">
+								<label for="categorie">Catégorie</label>
+								<input id="categorie" type="text" class="form-control" th:field="*{categorieAsso.catIntitule}"/>
+								<span class="erreur" th:errors="*{categorieAsso.catIntitule}"></span>
+							</div>  
+						</fieldset>
+						<div class="actionsDiv">
+							<input type="reset" class="btn btn-warning" value="Réinitialiser"/>
+						</div>
+						<div class="actionsDiv">
+							<input type="submit" class="btn btn-primary" value="Envoyer"/>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+
+		<footer th:insert="/includes/footer :: footer"></footer>
+	</body>
+</html>

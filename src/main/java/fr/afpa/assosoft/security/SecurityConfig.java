@@ -10,7 +10,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-
+// Classe permettant de personnaliser Spring Security
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
@@ -26,30 +26,41 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth)
 			throws Exception {
-		/*
-		 * auth.inMemoryAuthentication().withUser("jamesbond").password(bcpe.encode(
-		 * "6bdv6a3y6s")) .roles("Administrateur plateforme");
-		 * auth.inMemoryAuthentication().passwordEncoder(new BCryptPasswordEncoder());
-		 */
-		auth.jdbcAuthentication()
-				.dataSource(dataSource)
-				.usersByUsernameQuery(
-						"select personne_login as principal, personne_mdp as credentials, "
-								+ "statut_statut_id from personne where personne_login=? and statut_statut_id =2")
-				.authoritiesByUsernameQuery(
-						"select personne_login as principal, role_role_id as role from personne "
-								+ " where personne_login = ? and role_role_id = 1")
-				.rolePrefix("ROLE_")
-				.passwordEncoder(getBCPE());
+		try {
+			
+			/*
+			 * auth.inMemoryAuthentication().withUser("jamesbond").password(getBCPE().
+			 * encode( "6bdv6a3y6s")) .roles("Administrateur plateforme");
+			 * auth.inMemoryAuthentication().passwordEncoder(new BCryptPasswordEncoder());
+			 */
+			 
+			
+			  auth.jdbcAuthentication() .dataSource(dataSource) .usersByUsernameQuery(
+			  "select personne_login as principal, personne_mdp as credentials," +
+			  "statut_statut_id from personne where personne_login=? and statut_statut_id =2"
+			  ) .authoritiesByUsernameQuery(
+			  "select personne_login as principal, r.role_intitule as role from personne, role as r"
+			  + " where personne_login = ? and role_role_id = r.role_id")
+			  .rolePrefix("ROLE_") .passwordEncoder(getBCPE());
+			 
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
 	}
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.formLogin();
-		http.authorizeRequests().antMatchers("/dashboard/2/*")
-				.hasRole("Administrateur plateforme");
-		http.authorizeRequests().antMatchers("/dashboard/1/*")
-				.hasRole("Administrateur association");
+		try {
+			http.formLogin().loginPage("/login");
+			http.authorizeRequests().antMatchers("/dashboard")
+					.hasRole("Administrateur plateforme");
+			http.authorizeRequests().antMatchers("/dashboard?level=2")
+					.hasRole("Administrateur association");
+			http.exceptionHandling().accessDeniedPage("/403");
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+		
 	}
 
 }

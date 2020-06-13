@@ -107,7 +107,7 @@ div#listingTitle h1 {
 	color: rgb(243,112,75);
 }
 
-#connexionTitle, #inscriptionTitle {
+#connectionTitle, #inscriptionTitle {
 	font-size: 24pt;
 	font-weight: bolder;
 	color: black;
@@ -115,7 +115,7 @@ div#listingTitle h1 {
 	margin-bottom: 6pt;
 }
 
-#titleFormConnexion {
+#titleFormConnection {
 	margin: 14% 20%;
 }
 
@@ -123,7 +123,7 @@ div#listingTitle h1 {
 	margin: 5% 20%;
 }
 
-#titleFormConnexion, #titleFormInscription {
+#titleFormConnection, #titleFormInscription {
 	padding: 5%;
 	border: 1pt solid orange;
 	border-radius: 2%;
@@ -157,11 +157,11 @@ fieldset {
 	width: 25%;
 }
 
-label#titleFormConnexion, label#titleFormInscription {
+label#titleFormConnection, label#titleFormInscription {
     text-align: left;
 }
 
-input#titleFormConnexion, input#titleFormInscription {
+input#titleFormConnection, input#titleFormInscription {
    float: right;
 }
 
@@ -218,10 +218,20 @@ input#titleFormConnexion, input#titleFormInscription {
     color: #fff;
 }
 
+.error {
+	color: orangered;
+}
+
+#titleRestricted {
+	margin: 20%;
+	color: white;
+	text-align: center;
+}
+
+
 #rights {
 	display: inline;
 	color: white;
 	text-align: right;
 	margin-right: 2%;
 }
-

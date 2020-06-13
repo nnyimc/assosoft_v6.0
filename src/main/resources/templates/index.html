@@ -9,10 +9,10 @@
 <meta name="description" content=""/>
 <meta name="author" content=""/>
 <!-- Bootstrap core CSS -->
-<link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
+<link href="vendor/bootstrap/css/bootstrap.min.css" th:href="@{vendor/bootstrap/css/bootstrap.min.css}" rel="stylesheet" type="text/css"/>
 
 <!-- Custom styles for this template -->
-<link href="css/heroic-features.css" rel="stylesheet"/>
+<link href="css/heroic-features.css" th:href="@{css/heroic-features.css}" rel="stylesheet" type="text/css"/>
 <title>Assosoft - Accueil</title>
 
 </head>
@@ -42,7 +42,7 @@
 		</header>
 
 		<!-- Page Features -->
-		<div id="noResults" th:if="(${noResults}==0)">
+		<div id="noResults" th:if="${noResults}==0">
 			<h1 id="recherche">Recherche</h1>
 			<p> Votre recherche n'a retourné aucun résultat.</p>
 			<a th:href="@{/index}">
@@ -77,8 +77,9 @@
 		<!-- /.row -->
 		<div id="pagination" th:if="(${noResults}==null)">
 			<span>Page: </span>
-			<ul id="pageList">
+			<ul id="pageList" class="nav nav-pills">
 				<li class="pageLink" th:each="p:${arrPages}">
+				   <!-- Envoi d'une requête avec le numéro de la page en paramètre -->
                    <a th:href="@{index(page=${p})}" th:text="${p}"></a>
                </li>
 			</ul>

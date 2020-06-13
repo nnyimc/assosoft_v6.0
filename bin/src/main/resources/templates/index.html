@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeLeaf.org" lang="fr">
+
+<head>
+
+<meta charset="utf-8"/>
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+<meta name="description" content=""/>
+<meta name="author" content=""/>
+<!-- Bootstrap core CSS -->
+<link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
+
+<!-- Custom styles for this template -->
+<link href="css/heroic-features.css" rel="stylesheet"/>
+<title>Assosoft - Accueil</title>
+
+</head>
+
+<body>
+
+	<nav th:insert="/includes/navbar :: navbar"></nav>
+	
+	<!-- Page Content -->
+	<div class="container">
+
+		<!-- Jumbotron Header -->
+		<header class="jumbotron my-4">
+			<div id="presentation">
+			    <h1>Assosoft</h1>
+			    <h2>Plateforme de gestion associative</h2>
+			    <p>
+				    Assosoft est une plateforme gratuite dédiée à la promotion d'associations 
+				    sportives, humanitaires et culturelles situées sur l'ensemble du territoire. 
+				    Au sein de votre espace vous trouverez les outils nécessaires
+				     à la bonne gestion de votre structure ainsi que de vos adhérents.
+			    </p>
+				<a href="/inscription" th:href="@{/inscription}" class="btn btn-primary btn-lg">
+					Rejoignez-nous !
+				</a>
+			</div>
+		</header>
+
+		<!-- Page Features -->
+		<div id="noResults" th:if="(${noResults}==0)">
+			<h1 id="recherche">Recherche</h1>
+			<p> Votre recherche n'a retourné aucun résultat.</p>
+			<a th:href="@{/index}">
+				<button class="btn btn-primary">Accueil</button>
+			</a>
+		</div>
+		
+		<div id="listingTitle">
+			<h1 th:if="(${noResults}==null)">Liste des associations</h1>
+		</div>
+		
+		<div class="row text-center">
+			<div class= "col-lg-4 col-md-6 mb-4" th:each="asso:${listeAsso}">
+				<div class="card h-100">
+					<a th:href="@{/assoDetail(id=${asso.assoId})}" >
+						<img class="card-img-top assoCover" 
+						th:src="${asso.medias[0].mediaPath}" alt="">
+					</a>
+					<div class="card-body">
+						<h4 class="card-title" th:text="${asso.assoNom}"></h4>
+						<p class="card-text presentation">Lorem ipsum dolor sit amet, consectetur
+							adipisicing elit. Sapiente esse necessitatibus neque.</p>
+					</div>
+					<div class="card-footer">
+						<a th:href="@{/assoDetail(id=${asso.assoId})}" class="btn btn-primary">
+							Voir profil
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- /.row -->
+		<div id="pagination" th:if="(${noResults}==null)">
+			<span>Page: </span>
+			<ul id="pageList">
+				<li class="pageLink" th:each="p:${arrPages}">
+                   <a th:href="@{index(page=${p})}" th:text="${p}"></a>
+               </li>
+			</ul>
+		</div>
+	</div>
+	<!-- /.container -->
+
+	<footer th:insert="/includes/footer :: footer"></footer>
+</body>
+
+</html>

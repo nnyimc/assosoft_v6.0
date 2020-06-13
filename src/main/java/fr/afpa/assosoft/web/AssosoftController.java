@@ -125,14 +125,58 @@ public class AssosoftController {
 		}
 		paginer(model, listeAsso, page);
 		traitementRecherches(model);
+		
+		// Affichage du lien "Connexion" dans la barre de navigation
+		int mode = 1;
+		model.addAttribute("authValue", mode);
 		return "index";
 	}
 
 	@GetMapping({ "/inscription" })
 	public String afficherInscription(Model model) {
 		traitementRecherches(model);
+		int mode = 0;
+		model.addAttribute("authValue", mode);
 		model.addAttribute("inscriptionAsso", new InscriptionAsso());
 		return "inscription";
+	}
+	
+	@GetMapping({ "/login" })
+	public String demarrerAuth(Model model) {
+		traitementRecherches(model);
+		int mode = 0;
+		model.addAttribute("authValue", mode);
+		return "login";
+	}
+	
+	@PostMapping({"/login"})
+	public String traitementAuth(Model model) {
+		traitementRecherches(model);
+		return "login";
+	}
+	
+	@GetMapping({ "/logout" })
+	public String terminerAuth(Model model) {
+		traitementRecherches(model);
+		int mode = 1;
+		model.addAttribute("authValue", mode);
+		return "login";
+	}
+	
+	@GetMapping({ "/403" })
+	public String gererRestriction(Model model) {
+		traitementRecherches(model);
+		int mode = 1;
+		model.addAttribute("authValue", mode);
+		return "403";
+	}
+	
+	@GetMapping({ "/dashboard" })
+	public String afficherDashboard(Model model) {
+		traitementRecherches(model);
+		int mode = 0;
+		model.addAttribute("authValue", mode);
+		return "dashboard";
 	}
 
 	@PostMapping({ "/saveAssociation" })

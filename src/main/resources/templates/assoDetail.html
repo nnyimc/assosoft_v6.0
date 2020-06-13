@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org">
 
 <head>
 
@@ -7,10 +7,10 @@
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <!-- Bootstrap core CSS -->
-<link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+<link href="vendor/bootstrap/css/bootstrap.min.css" th:href="@{/css/heroic-features.css}" rel="stylesheet" />
 
 <!-- Custom styles for this template -->
-<link href="css/heroic-features.css" rel="stylesheet" />
+<link href="css/heroic-features.css" th:href="@{/vendor/bootstrap/css/bootstrap.min.css}" rel="stylesheet" />
 <title th:text="${assos.assoNom}+' - Details'"></title>
 
 </head>
