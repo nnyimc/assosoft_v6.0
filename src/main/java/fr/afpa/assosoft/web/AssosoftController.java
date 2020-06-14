@@ -148,9 +148,10 @@ public class AssosoftController {
 		if (logout != null && !logout.contentEquals("")){
 			int mode = 1;
 			model.addAttribute("authValue", mode);
-	    }
-		int mode = 0;
-		model.addAttribute("authValue", mode);
+	    } else {
+			int mode = 0;
+			model.addAttribute("authValue", mode);
+		}
 		return "login";
 	}
 	
