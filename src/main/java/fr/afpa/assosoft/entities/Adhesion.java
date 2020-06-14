@@ -1,9 +1,7 @@
 /*
  * 1ere partie du mapping objet relationnel
- * Ce Plain Old Java Object (POJO) représente une adhésion.
- * Par POJO on sous-entend qu'il se suffit à lui même et ne nécessite pas d'implementer 
- * une interface ou étendre une classe mère. 
- * Les annotations permettent de le transformer en entité JPA. 
+ * Ce Plain Old Java Object (POJO) représente une adhésion. Par POJO on sous-entend qu'il se suffit à lui même 
+ * et ne nécessite pas d'implementer une interface ou étendre une classe mère.  
  * 
  */
 package fr.afpa.assosoft.entities;
@@ -28,7 +26,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-//Annotation JPA - permet de créer la table ADHESION comme une entité
+// Annotation JPA - permet de créer la table ADHESION comme une entité
 @Entity
 
 /*
@@ -38,7 +36,7 @@ import lombok.ToString;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-//@Table(uniqueConstraints = @UniqueConstraint(columnNames = { "association_asso_id", "personne_personne_id" }))
+@Table(uniqueConstraints = @UniqueConstraint(columnNames = { "association_asso_id", "personne_personne_id" }))
 public class Adhesion implements Serializable {
 
 	/*
