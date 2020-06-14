@@ -62,7 +62,7 @@
 			</li>
 			<li class="nav-item" th:if="${authValue}==1"><a class="nav-link" href="/login" th:href="@{/login}">Connexion</a>
 			</li>
-			<li class="nav-item" th:if="${authValue}==0"><a class="nav-link" href="/logout" th:href="@{/logout}">Déconnexion</a>
+			<li class="nav-item" th:if="${authValue}==0"><a class="nav-link" href="/login?logout" th:href="@{/login?logout}">Déconnexion</a>
 			</li>
 		</ul>
 	</div>

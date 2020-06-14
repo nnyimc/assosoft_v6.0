@@ -143,8 +143,12 @@ public class AssosoftController {
 	}
 	
 	@GetMapping({ "/login" })
-	public String demarrerAuth(Model model) {
+	public String demarrerAuth(Model model, @RequestParam(required = false, name = "logout") String logout) {
 		traitementRecherches(model);
+		if (logout != null && !logout.contentEquals("")){
+			int mode = 1;
+			model.addAttribute("authValue", mode);
+	    }
 		int mode = 0;
 		model.addAttribute("authValue", mode);
 		return "login";
@@ -156,13 +160,6 @@ public class AssosoftController {
 		return "login";
 	}
 	
-	@GetMapping({ "/logout" })
-	public String terminerAuth(Model model) {
-		traitementRecherches(model);
-		int mode = 1;
-		model.addAttribute("authValue", mode);
-		return "login";
-	}
 	
 	@GetMapping({"/dltAsso"})
 	public String supprimerAsso(Long id) {
