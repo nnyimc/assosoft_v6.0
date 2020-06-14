@@ -48,7 +48,7 @@ import fr.afpa.assosoft.entities.Ville;
 
 @Service
 @Transactional
-class AssosoftInitServiceImpl implements IAssosoftInitService {
+public class AssosoftInitServiceImpl implements IAssosoftInitService {
 
 	@Autowired
 	private StatutRepository statutRepo;

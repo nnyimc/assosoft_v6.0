@@ -1,5 +1,5 @@
 /*
- * Initialization de l'application
+ * Initialisation de l'application
  * La commande run permet d'éxecuter une série de commande au démarrage de Spring Boot
  * Lancement d'algorithme permettant de générer l'ensemble des tables 
  * de la base de données.
