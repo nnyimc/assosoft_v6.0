@@ -195,7 +195,6 @@ class AssosoftInitServiceImpl implements IAssosoftInitService {
 			personne.setPersonneMdp(
 					bCPE.encode(personne.getPersonneLogin())
 				);
-			System.out.println(" Mot de passe: " + personne.getPersonneMdp());
 			personne.setPersonneMail(creaEmail(prenom, nom));
 			personne.setVille(villeAleatoire(villes));
 			personne.setStatut(statut);
@@ -503,7 +502,7 @@ class AssosoftInitServiceImpl implements IAssosoftInitService {
 	}
 
 	private String creaUrl(String nom) {
-		return nom.replace(" ", "").toLowerCase() + ".fr";
+		return "http://"+nom.replace(" ", "").toLowerCase() + ".fr";
 	}
 
 }

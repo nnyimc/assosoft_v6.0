@@ -47,4 +47,6 @@ public interface IAssociationService {
 
 	public void saveAssociation(InscriptionAsso inscriptionAsso, MultipartFile file) throws IOException;
 
+	public void supprimerAsso(Long id);
+
 }

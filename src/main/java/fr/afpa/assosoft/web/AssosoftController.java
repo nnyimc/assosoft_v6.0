@@ -4,6 +4,7 @@ package fr.afpa.assosoft.web;
 import org.springframework.ui.Model;
 
 import java.io.IOException;
+import java.sql.Timestamp;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -161,6 +162,12 @@ public class AssosoftController {
 		int mode = 1;
 		model.addAttribute("authValue", mode);
 		return "login";
+	}
+	
+	@GetMapping({"/dltAsso"})
+	public String supprimerAsso(Long id) {
+		assoService.supprimerAsso(id);
+		return "dashboard";
 	}
 	
 	@GetMapping({ "/403" })

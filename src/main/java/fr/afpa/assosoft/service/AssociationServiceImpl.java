@@ -243,4 +243,9 @@ public class AssociationServiceImpl implements IAssociationService {
 				categorie, PageRequest.of(page, size));
 	}
 
+	@Override
+	public void supprimerAsso(Long id) {
+		assoRepository.deleteById(id);
+	}
+
 }

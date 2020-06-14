@@ -80,7 +80,7 @@
 			<ul id="pageList" class="nav nav-pills">
 				<li class="pageLink" th:each="p:${arrPages}">
 				   <!-- Envoi d'une requête avec le numéro de la page en paramètre -->
-                   <a th:href="@{index(page=${p})}" th:text="${p}"></a>
+                   <a th:href="@{/index(page=${p})}" th:text="${p}"></a>
                </li>
 			</ul>
 		</div>

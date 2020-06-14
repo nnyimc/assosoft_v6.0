@@ -53,7 +53,7 @@
 									<div class="row no-gutters align-items-center">
 										<div class="col mr-2">
 											<div class="card-footer">
-												<a th:href="@{/dltAsso(id=${asso.assoId})}"
+												<a onclick="return confirm('Confirmez-vous la suppression ?')" th:href="@{/dltAsso(id=${asso.assoId})}"
 													class="btn btn-danger"> Supprimer </a>
 											</div>
 										</div>
@@ -77,7 +77,7 @@
 						<ul id="pageList" class="nav nav-pills">
 							<li class="pageLink" th:each="p:${arrPages}">
 							   <!-- Envoi d'une requête avec le numéro de la page en paramètre -->
-			                   <a th:href="@{index(page=${p})}" th:text="${p}"></a>
+			                   <a th:href="@{dashboard(page=${p})}" th:text="${p}"></a>
 			               </li>
 						</ul>
 					</div>
