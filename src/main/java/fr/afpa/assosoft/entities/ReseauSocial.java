@@ -25,8 +25,13 @@ public class ReseauSocial implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long reseauId;
+	
+	
 	@Column(length = 100, nullable = false, unique = true)
 	private String reseauNom;
+	
+	
 	@OneToMany(mappedBy = "reseauSocial", cascade = CascadeType.ALL)
 	private Collection<LienReseau> liensReseau;
+
 }

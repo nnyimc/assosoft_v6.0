@@ -9,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Transient;
@@ -56,17 +57,18 @@ public class Personne implements Serializable {
 	@NotEmpty
 	@Email
 	private String personneMail;
-	// org.hibernate.PersistentObjectException:
-	// detached entity passed to persist ---> Eviter CascadeType.ALL
-	@ManyToOne(cascade = CascadeType.MERGE)
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "statutId")
 	@NotNull
 	@ToString.Exclude
 	private Statut statut;
-	@ManyToOne(cascade = CascadeType.MERGE)
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "villeId")
 	@NotNull
 	@ToString.Exclude
 	private Ville ville;
-	@ManyToOne(cascade = CascadeType.MERGE)
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name="roleId")
 	@NotNull
 	@ToString.Exclude
 	private Role role;
@@ -86,5 +88,17 @@ public class Personne implements Serializable {
 	@ToString.Exclude
 	// @JsonProperty(access = Access.WRITE_ONLY)
 	private Collection<Don> dons;
+	
+	public Personne (String nom, String prenom, String login, String mdp,
+			String mail, Ville ville, Statut statut, Role role) {
+		personneNom = nom;
+		personnePrenom = prenom;
+		personneLogin = login;
+        personneMdp = mdp;
+        personneMail = mail;
+        this.ville = ville;
+        this.statut = statut;
+        this.role = role;
+	}
 
 }

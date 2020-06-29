@@ -9,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.DecimalMax;
@@ -35,14 +36,23 @@ public class Proposition implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long propositionId;
+	
+	
 	@Column(length = 100, nullable = false, unique = true)
 	private String propositionNom;
+	
+	
 	@DecimalMin(value = "0.01", inclusive = true)
 	@DecimalMax(value = "9999.99", inclusive = true)
 	private double propositionPrix;
-	@ManyToOne(cascade = CascadeType.MERGE)
+	
+	
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "typePropositionId")
 	@NotNull
 	private TypeProp typeProp;
+	
+	
 	@OneToMany(mappedBy = "proposition", cascade = CascadeType.ALL)
 	private Collection<Offre> offres;
 }

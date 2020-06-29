@@ -45,8 +45,4 @@ public class Statut implements Serializable {
 	// @JsonProperty(access = Access.WRITE_ONLY)
 	private Collection<Don> dons;
 
-	public Statut(Long id, String valeur) {
-		statutId = id;
-		statutValeur = valeur;
-	}
 }

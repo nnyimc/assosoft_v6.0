@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
@@ -31,13 +32,21 @@ public class LienReseau implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long lienReseauId;
+	
+	
 	@Column(length = 100, nullable = false, unique = true)
 	private String lienReseauUrl;
-	@ManyToOne(cascade = CascadeType.MERGE)
+	
+	
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "assoId")
 	@NotNull
 	// @JsonProperty(access = Access.WRITE_ONLY)
 	private Association association;
-	@ManyToOne(cascade = CascadeType.MERGE)
+	
+	
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "reseauId")
 	@NotNull
 	// @JsonProperty(access = Access.WRITE_ONLY)
 	private ReseauSocial reseauSocial;

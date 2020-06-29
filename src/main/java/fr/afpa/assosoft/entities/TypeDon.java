@@ -28,9 +28,14 @@ public class TypeDon implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long typeDonId;
+	
+	
 	@Column(length = 20, nullable = false, unique = true)
 	private String typeDonDesc;
+	
+	
 	@OneToMany(mappedBy = "typeDon", cascade = CascadeType.ALL)
 	// @JsonProperty(access = Access.WRITE_ONLY)
 	private Collection<Don> dons;
+	
 }

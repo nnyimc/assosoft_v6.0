@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 import lombok.AllArgsConstructor;
@@ -26,8 +27,10 @@ public class Offre implements Serializable {
 	private Long offreId;
 	private Date dateDebut;
 	private Date dateFin;
-	@ManyToOne(cascade = CascadeType.MERGE)
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "assoId")
 	private Association association;
-	@ManyToOne(cascade = CascadeType.MERGE)
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "propositionId")
 	private Proposition proposition;
 }

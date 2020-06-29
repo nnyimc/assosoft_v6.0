@@ -25,8 +25,13 @@ public class TypeProp implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long typePropositionId;
+	
+	
 	@Column(length = 80, nullable = false, unique = true)
 	private String typePropositionValeur;
+	
+	
 	@OneToMany(mappedBy = "typeProp", cascade = CascadeType.ALL)
 	private Collection<Proposition> propositions;
+
 }

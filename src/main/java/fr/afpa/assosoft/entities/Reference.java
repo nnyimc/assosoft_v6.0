@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
@@ -30,12 +31,15 @@ public class Reference implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long referenceId;
-	@ManyToOne(cascade = CascadeType.MERGE)
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "assoId")
 	@NotNull
 	// @JsonProperty(access = Access.WRITE_ONLY)
 	private Association association;
-	@ManyToOne(cascade = CascadeType.MERGE)
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "contactId")
 	@NotNull
 	// @JsonProperty(access = Access.WRITE_ONLY)
 	private Contact contact;
+
 }

@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -34,9 +35,11 @@ public class Media implements Serializable {
 	@Column(length = 100, nullable = false, unique = true)
 	private String mediaPath;
 	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "personneId")
 	// @JsonProperty(access = Access.WRITE_ONLY)
 	private Personne personne;
 	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "assoId")
 	// @JsonProperty(access = Access.WRITE_ONLY)
 	private Association association;
 

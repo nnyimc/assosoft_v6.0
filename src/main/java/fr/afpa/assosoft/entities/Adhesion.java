@@ -13,6 +13,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
@@ -34,7 +35,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(uniqueConstraints = @UniqueConstraint(columnNames = { "association_asso_id", "personne_personne_id" }))
+@Table(uniqueConstraints = @UniqueConstraint(columnNames = { "assoId", "personneId" }))
 public class Adhesion implements Serializable {
 
 	/*
@@ -46,13 +47,15 @@ public class Adhesion implements Serializable {
 	private Long adhesionId;
 
 	// Mise en place des cardinalités
-	@ManyToOne(cascade = CascadeType.MERGE)
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "assoId")
 	@NotNull
 	// Annotation JSON - permet d'éviter les boucles infinies en lecture
 	// @JsonProperty(access = Access.WRITE_ONLY)
 	private Association association;
 
-	@ManyToOne(cascade = CascadeType.MERGE)
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "personneId")
 	@NotNull
 	// @JsonProperty(access = Access.WRITE_ONLY)
 	private Personne personne;

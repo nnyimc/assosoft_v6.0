@@ -33,4 +33,5 @@ public class Categorie implements Serializable {
 	@OneToMany(mappedBy = "categorie", cascade = CascadeType.ALL)
 	// @JsonProperty(access = Access.WRITE_ONLY)
 	private Collection<Association> associations;
+
 }

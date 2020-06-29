@@ -138,9 +138,9 @@ public class AssosoftInitServiceImpl implements IAssosoftInitService {
 
 	@Override
 	public void initTypesDons() {
-		Stream.of("Financement", "Matériel").forEach(type -> {
+		Stream.of("Financement", "Matériel").forEach(typeDonDesc -> {
 			TypeDon typeDon = new TypeDon();
-			typeDon.setTypeDonDesc(type);
+			typeDon.setTypeDonDesc(typeDonDesc);
 			typeDonRepo.save(typeDon);
 		});
 	}

@@ -35,8 +35,4 @@ public class Role implements Serializable {
 	// @JsonProperty(access = Access.WRITE_ONLY)
 	private Collection<Personne> personnes;
 
-	public Role(Long id, String intitule) {
-		roleId = id;
-		roleIntitule = intitule;
-	}
 }
