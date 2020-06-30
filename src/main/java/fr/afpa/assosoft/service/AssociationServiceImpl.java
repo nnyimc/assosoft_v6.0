@@ -157,6 +157,14 @@ public class AssociationServiceImpl implements IAssociationService {
 		}
 
 		// Création de l'admin
+		Role role = new Role();
+		role.setRoleId((long) 2);
+		role.setRoleIntitule("Administrateur association");
+		
+		Statut statutActive = new Statut();
+		statutActive.setStatutId((long) 2);
+		statutActive.setStatutValeur("Activé");
+		
 		Personne admin = new Personne();
 		admin.setPersonneLogin(inscriptionAsso.getPersonneLogin());
 		admin.setPersonneMail(inscriptionAsso.getPersonneMail());
@@ -164,9 +172,10 @@ public class AssociationServiceImpl implements IAssociationService {
 				bPCE.encode(inscriptionAsso.getPersonneMdp()));
 		admin.setPersonneNom(inscriptionAsso.getPersonneNom());
 		admin.setPersonnePrenom(inscriptionAsso.getPersonnePrenom());
-		admin.setRole(new Role((long) 2, "Administrateur association"));
-		admin.setStatut(new Statut((long) 2, "Activé"));
+		admin.setRole(role);
+		admin.setStatut(statutActive);
 		admin.setVille(villeAdmin);
+		
 		personneRepository.save(admin);
 
 		// Récupération de la catégorie
@@ -206,7 +215,7 @@ public class AssociationServiceImpl implements IAssociationService {
 		association.setAssoUrl(inscriptionAsso.getAssoUrl());
 		association.setAdmin(admin);
 		association.setMedias(collectionMedia);
-		association.setStatut(new Statut((long) 2, "Activé"));
+		association.setStatut(statutActive);
 		association.setVille(villeAsso);
 		association.setCategorie(categorie);
 		assoRepository.save(association);
@@ -226,8 +235,17 @@ public class AssociationServiceImpl implements IAssociationService {
 
 	@Override
 	public void saveAdherent(Personne personne) {
-		personne.setRole(new Role((long) 3, "Adhérent"));
-		personne.setStatut(new Statut((long) 2, "Activé"));
+		Role role = new Role();
+		role.setRoleId((long) 3);
+		role.setRoleIntitule("Adhérent");
+		
+		
+		Statut statut = new Statut();
+		statut.setStatutId((long) 2);
+		statut.setStatutValeur("Activé");
+		
+		personne.setRole(role);
+		personne.setStatut(statut);
 		personneRepository.save(personne);
 	}
 
