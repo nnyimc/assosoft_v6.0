@@ -70,12 +70,12 @@ public class AssociationServiceImpl implements IAssociationService {
 		// Copie du fichier dans le répertoire uploads
 		Files.write(
 				Paths.get(
-						"E://assosoft/assosoft_v5.2/src/main/resources/static/images/association/"
+						"J://git/assosoft_v6/src/main/resources/static/images/"
 								+ newUrl + ".jpg"),
 				retrievedFile.getBytes());
 		assoImage.setMediaPath("/images/association/" + newUrl + ".jpg");
 		assoImage.setMediaUrl(
-				"E://assosoft/assosoft_v5.2/src/main/resources/static/images/association/"
+				"J://git/assosoft_v6/src/main/resources/static/images/"
 						+ newUrl + ".jpg");
 		assoImage.setMediaTitre(newUrl);
 		return assoImage;

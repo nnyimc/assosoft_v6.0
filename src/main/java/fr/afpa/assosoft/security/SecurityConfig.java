@@ -9,7 +9,10 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.session.HttpSessionEventPublisher;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 // Classe permettant de personnaliser Spring Security
 @Configuration
 @EnableWebSecurity
@@ -19,7 +22,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	BCryptPasswordEncoder getBCPE() {
 		return new BCryptPasswordEncoder();
 	}
-
+    
+	@Bean 
+	//  Permet de signaler la fermeture de la session en cours au registre de Spring 
+	public HttpSessionEventPublisher httpSessionEventPublisher() {
+	    return new HttpSessionEventPublisher();
+	}
+	
 	@Autowired
 	private DataSource dataSource;
 
@@ -37,10 +46,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			
 			  auth.jdbcAuthentication() .dataSource(dataSource) .usersByUsernameQuery(
 			  "select personne_login as principal, personne_mdp as credentials," +
-			  "statut_statut_id from personne where personne_login=? and statut_statut_id =2"
+			  "statut_id from personne where personne_login=? and statut_id =2"
 			  ) .authoritiesByUsernameQuery(
-			  "select personne_login as principal, r.role_intitule as role from personne, role as r"
-			  + " where personne_login = ? and role_role_id = r.role_id")
+			  "select personne_login as principal, r.role_intitule as role from personne as p, role as r"
+			  + " where personne_login = ? and p.role_id = r.role_id")
 			  .rolePrefix("ROLE_") .passwordEncoder(getBCPE());
 			 
 		} catch (Exception e) {
@@ -57,6 +66,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			http.authorizeRequests().antMatchers("/dashboard?level=2")
 					.hasRole("Administrateur association");
 			http.exceptionHandling().accessDeniedPage("/403");
+			http.logout().logoutRequestMatcher(new AntPathRequestMatcher("/login?logout"));
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}

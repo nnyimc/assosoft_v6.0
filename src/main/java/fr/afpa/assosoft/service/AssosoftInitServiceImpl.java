@@ -191,6 +191,7 @@ public class AssosoftInitServiceImpl implements IAssosoftInitService {
 			personne.setPersonneLogin(
 					(prenom + nom).replace(" ", "").toLowerCase());
 			// personne.setPersonneMdp(strAleatoire(10));
+			
 			// Encodage du mot de passe
 			personne.setPersonneMdp(
 					bCPE.encode(personne.getPersonneLogin())
@@ -284,8 +285,8 @@ public class AssosoftInitServiceImpl implements IAssosoftInitService {
 				LienReseau lienReseau = new LienReseau();
 				lienReseau.setAssociation(asso);
 				lienReseau.setReseauSocial(reseaux.get(i));
-				String url = "fr."
-						+ reseaux.get(i).getReseauNom().toLowerCase() + "/"
+				String url = "http://"
+						+ reseaux.get(i).getReseauNom().toLowerCase() + ".com/"
 						+ asso.getAssoNom().replace(" ", "").toLowerCase();
 				lienReseau.setLienReseauUrl(url);
 				lienReseauRepo.save(lienReseau);

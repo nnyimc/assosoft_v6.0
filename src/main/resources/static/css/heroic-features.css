@@ -60,7 +60,7 @@ div#recherche {
 
 header {
 	background-image: url(../images/custom/coverAssosoft.jpg);
-	background-size: 100% 100%;
+	background-size: cover;
 	backgroud-repeat: no-repeat;
 }
 
@@ -116,11 +116,11 @@ div#listingTitle h1 {
 }
 
 #titleFormConnection {
-	margin: 14% 20%;
+	margin: 14% 10%;
 }
 
 #titleFormInscription {
-	margin: 5% 20%;
+	margin: 12% 10%;
 }
 
 #titleFormConnection, #titleFormInscription {
@@ -146,7 +146,7 @@ fieldset {
 .actionsDiv {
 	display: inline-block;
 	text-align:center;
-	margin: 0 15%;
+	margin: 0 10%;
 }
 
 .erreur {
