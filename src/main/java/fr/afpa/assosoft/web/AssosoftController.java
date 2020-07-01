@@ -129,11 +129,11 @@ public class AssosoftController {
 		paginer(model, listeAsso, page);
 		traitementRecherches(model);
 		
-		// Affichage du lien "Connexion/Deconnexion" dans la barre de navigation
+		// Affichage du lien "Connexion-Deconnexion" dans la barre de navigation
 		int mode = 1;
 		model.addAttribute("authValue", mode);
 		
-		// La valeur du referer influe sur l'affichage du lien "Connexion/Deconnexion"
+		// La valeur du referer influe sur l'affichage du lien "Connexion-Deconnexion"
 		model.addAttribute("referer", referer);
 		return "index";
 	}
