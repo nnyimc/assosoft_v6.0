@@ -16,11 +16,10 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
-
 import fr.afpa.assosoft.beans.InscriptionAsso;
 import fr.afpa.assosoft.entities.Adhesion;
 import fr.afpa.assosoft.entities.Association;
@@ -98,7 +97,8 @@ public class AssosoftController {
 			@RequestParam(name = "page", defaultValue = "1") int page,
 			@RequestParam(name = "contenuRecherche", defaultValue = "") String contenuRecherche,
 			@RequestParam(name = "localite", defaultValue = "") String localite,
-			@RequestParam(name = "categorie", defaultValue = "") String categorie) {
+			@RequestParam(name = "categorie", defaultValue = "") String categorie,
+			@RequestHeader(value = "referer", required = false) final String referer) {
 
 		// Initialisation de la page d'accueil
 		Page<Association> listeAsso = assoService.listerAsso(page - 1, 3);
@@ -132,15 +132,16 @@ public class AssosoftController {
 		// Affichage du lien "Connexion/Deconnexion" dans la barre de navigation
 		int mode = 1;
 		model.addAttribute("authValue", mode);
-		System.out.println();
-	
+		
+		// La valeur du referer influe sur l'affichage du lien "Connexion/Deconnexion"
+		model.addAttribute("referer", referer);
 		return "index";
 	}
 
 	@GetMapping({ "/inscription" })
 	public String afficherInscription(Model model) {
 		traitementRecherches(model);
-		int mode = 0;
+		int mode = 1;
 		model.addAttribute("authValue", mode);
 		model.addAttribute("inscriptionAsso", new InscriptionAsso());
 		return "inscription";
@@ -188,7 +189,7 @@ public class AssosoftController {
 	
 	@GetMapping({ "/dashboard" })
 	public String afficherDashboard(Model model, @RequestParam(name = "page", defaultValue = "1") int page) {
-		Page<Association> listeAsso = assoService.listerAsso(page - 1, 4);
+		Page<Association> listeAsso = assoService.listerAsso(page - 1, 3);
 		int mode = 0;
 		model.addAttribute("authValue", mode);
 		model.addAttribute("listeAsso", listeAsso);

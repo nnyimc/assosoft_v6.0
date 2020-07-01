@@ -54,11 +54,11 @@
 					<span class="sr-only">(current)</span>
 				</a>
 			</li>
-			<li class="nav-item"><a class="nav-link" href="/inscription" th:href="@{/inscription}">S'inscrire</a>
+			<li class="nav-item"><a class="nav-link" href="/inscription" th:href="@{/inscription}" th:if="${authValue} == 1">S'inscrire</a>
 			</li>
-			<li class="nav-item" th:if="${authValue} == 1"><a class="nav-link" href="/login" th:href="@{/login}">Connexion</a>
+			<li class="nav-item" th:if="${authValue} == 1 and ${!#strings.equals(referer,'http://localhost:8088/dashboard')}"><a class="nav-link" href="/login" th:href="@{/login}">Connexion</a>
 			</li>
-			<li class="nav-item" th:if="${authValue} == 0"><a class="nav-link" href="/login?logout" th:href="@{/login?logout}">Déconnexion</a>
+			<li class="nav-item" th:if="${authValue} == 0 or ${#strings.equals(referer,'http://localhost:8088/dashboard')}"><a class="nav-link" href="/login?logout" th:href="@{/login?logout}">Déconnexion</a>
 			</li>
 		</ul>
 	</div>

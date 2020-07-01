@@ -25,37 +25,37 @@
 							<legend class="legend text-center">Infos admin</legend>
 							<div id="nomDiv" class="form-group">
 								<label for="nom">Nom</label>
-								<input id="nom" type="text" class="form-control" th:field="*{personneNom}"/>
+								<input id="nom" type="text" class="form-control" th:field="*{personneNom}" required/>
 								<span class="erreur" th:errors="*{personneNom}"></span>
 							</div>
 							<div id="prenomDiv" class="form-group">
 								<label for="prenom">Prénom</label>
-								<input id="prenom" type="text" class="form-control" th:field="*{personnePrenom}"/>
+								<input id="prenom" type="text" class="form-control" th:field="*{personnePrenom}" required/>
 								<span class="erreur" th:errors="*{personnePrenom}"></span>
 							</div>
 							<div id="loginDiv" class="form-group">
 								<label for="login">Identifiant</label>
-								<input id="login" type="text" class="form-control" th:field="*{personneLogin}"/>
+								<input id="login" type="text" class="form-control" th:field="*{personneLogin}" required/>
 								<span class="erreur" th:errors="*{personneLogin}"></span>
 							</div>
 							<div id="passDiv" class="form-group">
 								<label for="pass">Mot de passe</label>
-								<input id="pass" type="password" class="form-control" th:field="*{personneMdp}"/>
+								<input id="pass" type="password" class="form-control" th:field="*{personneMdp}" required/>
 								<span class="erreur" th:errors="*{personneMdp}"></span>
 							</div>
 							<div id="passDiv" class="form-group">
 								<label for="confirmPass">Confirmation passe</label>
-								<input id="confirmPass" type="password" class="form-control" th:field="*{personneMdpRepeat}"/>
+								<input id="confirmPass" type="password" class="form-control" th:field="*{personneMdpRepeat}" required/>
 								<span class="erreur" th:errors="*{personneMdp}"></span>
 							</div>
 							<div id="mailDiv" class="form-group">
 								<label for="mail">Email</label>
-								<input id="mail" type="email" class="form-control" th:field="*{personneMail}"/>
+								<input id="mail" type="email" class="form-control" th:field="*{personneMail}" required/>
 								<span th:errors="*{personneMail}"></span>
 							</div>
 							<div id="villeDivAdmin" class="form-group">
 								<label for="villeAdmin">Ville</label>
-								<input id="villeAdmin" type="text" class="form-control" th:field="*{villeAdmin.villeNom}"/>
+								<input id="villeAdmin" type="text" class="form-control" th:field="*{villeAdmin.villeNom}" required/>
 								<span class="erreur" th:errors="*{villeAdmin.villeNom}"></span>
 							</div>  
 						</fieldset>
@@ -63,42 +63,42 @@
 							<legend class="legend text-center">Infos association</legend>
 							<div id="assoImage" class="form-group">
 								<label for="assoImage">Image</label>
-								<input type="file" id="assoImage" name="assoImage"  th:field="*{assoImage}"/>
+								<input type="file" id="assoImage" name="assoImage"  th:field="*{assoImage}" required/>
 								<span class="erreur" th:errors="*{assoImage}"></span>
 							</div>
 							<div id="assoNom" class="form-group">
 								<label for="assoNom">Nom</label>
-								<input id="assoNom" type="text" class="form-control" th:field="*{assoNom}"/>
+								<input id="assoNom" type="text" class="form-control" th:field="*{assoNom}" required/>
 								<span class="erreur" th:errors="*{assoNom}"></span>
 							</div>
 							<div id="assoNumRNA" class="form-group">
 								<label for="assoNumRNA">Numéro RNA</label>
-								<input id="assoNumRNA" type="text" class="form-control" th:field="*{assoNumRNA}"/>
+								<input id="assoNumRNA" type="text" class="form-control" th:field="*{assoNumRNA}" required/>
 								<span class="erreur" th:errors="*{assoNumRNA}"></span>
 							</div>
 							<div id="assoMail" class="form-group">
 								<label for="assoMail">Mail</label>
-								<input id="assoMail" type="email" class="form-control" th:field="*{assoMail}"/>
+								<input id="assoMail" type="email" class="form-control" th:field="*{assoMail}" required/>
 								<span class="erreur" th:errors="*{assoMail}"></span>
 							</div>
 							<div id="assoTel" class="form-group">
 								<label for="assoTel">Téléphone</label>
-								<input id="assoTel" type="tel" class="form-control" th:field="*{assoTel}"/>
+								<input id="assoTel" type="tel" class="form-control" th:field="*{assoTel}" required/>
 								<span class="erreur" th:errors="*{assoTel}"></span>
 							</div>
 							<div id="assoUrl" class="form-group">
 								<label for="assoUrl">Site web</label>
-								<input id="assoUrl" type="url" class="form-control" th:field="*{assoUrl}"/>
+								<input id="assoUrl" type="url" class="form-control" th:field="*{assoUrl}" required/>
 								<span class="erreur" th:errors="*{assoUrl}"></span>
 							</div>
 							<div id="villeDivAsso" class="form-group">
 								<label for="villeAsso">Ville</label>
-								<input id="villeAsso" type="text" class="form-control" th:field="*{villeAsso.villeNom}"/>
+								<input id="villeAsso" type="text" class="form-control" th:field="*{villeAsso.villeNom}" required/>
 								<span class="erreur" th:errors="*{villeAsso.villeNom}"></span>
 							</div>  
 							<div id="categorie" class="form-group">
 								<label for="categorie">Catégorie</label>
-								<input id="categorie" type="text" class="form-control" th:field="*{categorieAsso.catIntitule}"/>
+								<input id="categorie" type="text" class="form-control" th:field="*{categorieAsso.catIntitule}" required/>
 								<span class="erreur" th:errors="*{categorieAsso.catIntitule}"></span>
 							</div>  
 						</fieldset>
