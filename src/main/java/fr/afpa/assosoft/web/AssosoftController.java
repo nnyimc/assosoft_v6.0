@@ -4,9 +4,9 @@ package fr.afpa.assosoft.web;
 import org.springframework.ui.Model;
 
 import java.io.IOException;
-import java.sql.Timestamp;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -17,7 +17,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 import fr.afpa.assosoft.beans.InscriptionAsso;
 import fr.afpa.assosoft.entities.Adhesion;
@@ -127,9 +129,11 @@ public class AssosoftController {
 		paginer(model, listeAsso, page);
 		traitementRecherches(model);
 		
-		// Affichage du lien "Connexion" dans la barre de navigation
+		// Affichage du lien "Connexion/Deconnexion" dans la barre de navigation
 		int mode = 1;
 		model.addAttribute("authValue", mode);
+		System.out.println();
+	
 		return "index";
 	}
 
@@ -144,23 +148,27 @@ public class AssosoftController {
 	
 	
 	@GetMapping({ "/login" })
-	public String demarrerAuth(Model model, @RequestParam(required = false, name = "logout") String logout) {
+	public String demarrerAuth(Model model, @RequestParam(required = false, name = "logout") String logout, 
+			HttpSession httpSession, SessionStatus status) {
 		traitementRecherches(model);
 		if (logout != null){
-			int mode = 1;
-			model.addAttribute("authValue", mode);
+			// Indiquer que la session en cours est complète
+			status.setComplete();
+
+			// Rendre la session invalide et détruire ses propriétés
+			httpSession.invalidate();
 			return "redirect:/";
-	    } else {
-			int mode = 0;
-			model.addAttribute("authValue", mode);
-			return "login";
-		}
+	    } 
+		
+		int mode = 1;
+		model.addAttribute("authValue", mode);
+		return "login";	
 	}
 	
 	@PostMapping({"/login"})
 	public String traitementAuth(Model model) {
 		traitementRecherches(model);
-		return "dashboard";
+		return "login";
 	}
 	
 	
@@ -249,5 +257,4 @@ public class AssosoftController {
 		traitementRecherches(model);
 		return "assoDetail";
 	}
-
 }

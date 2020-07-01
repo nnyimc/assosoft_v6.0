@@ -14,23 +14,15 @@ img#logo {
 	max-height: 40pt;
 }
 
-
-input.navSection {
-	height: 16.5pt;
-}
-
 select, input {
 	width: 100%;
+	height: 20pt;
 }
 
 button.navSection {
 	padding: 0 1em;
 	vertical-align: initial;
-	height: 16pt;
-}
-
-div#recherche {
-	margin-right: 15%;
+	height: 20pt;
 }
 
 #submitSearch:hover {
@@ -40,12 +32,10 @@ div#recherche {
 
 
 #noResults{
-	margin: 3% 0;
-	height: 15em;
-	width: 25em;
 	text-align: center;
 	background: white;
 	border: 1pt solid rgb(47, 47, 209);
+	margin: 3% 0;
 }
 
 #noResults h1 {
@@ -56,6 +46,10 @@ div#recherche {
 
 #noResults p {
 	margin: 8% 0;
+}
+
+button.recherche {
+	margin: 2%;
 }
 
 header {
@@ -115,25 +109,14 @@ div#listingTitle h1 {
 	margin-bottom: 6pt;
 }
 
-#titleFormConnection {
-	margin: 14% 10%;
-}
-
-#titleFormInscription {
-	margin: 12% 10%;
-}
-
-#titleFormConnection, #titleFormInscription {
+#titleFormConnection, #titleFormInscription  {
+	margin: 15%;
 	padding: 5%;
 	border: 1pt solid orange;
-	border-radius: 2%;
 	background-color: white;
 	text-align: justify;
 }
 
-div#noResults {
-	margin : 0 30%;
-}
 
 fieldset {
 	margin: 2% 0;
@@ -146,7 +129,9 @@ fieldset {
 .actionsDiv {
 	display: inline-block;
 	text-align:center;
-	margin: 0 10%;
+	margin: 0 5%;
+	height: 20pt;
+	padding:.8%;
 }
 
 .erreur {
@@ -223,7 +208,7 @@ input#titleFormConnection, input#titleFormInscription {
 }
 
 #titleRestricted {
-	margin: 20%;
+	margin: 24%;
 	color: white;
 	text-align: center;
 }
@@ -239,6 +224,7 @@ input#titleFormConnection, input#titleFormInscription {
 
 #assoCard {
 	text-align: center;
+	margin: 2% 0;
 }
 
 

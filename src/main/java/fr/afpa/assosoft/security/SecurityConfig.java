@@ -9,10 +9,9 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.session.HttpSessionEventPublisher;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+
 // Classe permettant de personnaliser Spring Security
 @Configuration
 @EnableWebSecurity
@@ -39,7 +38,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			
 			/*
 			 * auth.inMemoryAuthentication().withUser("jamesbond").password(getBCPE().
-			 * encode( "6bdv6a3y6s")) .roles("Administrateur plateforme");
+			 * encode("6bdv6a3y6s")) .roles("Administrateur plateforme");
 			 * auth.inMemoryAuthentication().passwordEncoder(new BCryptPasswordEncoder());
 			 */
 			 
@@ -58,19 +57,27 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	}
 
 	@Override
-	protected void configure(HttpSecurity http) throws Exception {
+	protected void configure(HttpSecurity httpSec) throws Exception {
 		try {
-			http.formLogin().loginPage("/login");
-			http.authorizeRequests().antMatchers("/dashboard")
-					.hasRole("Administrateur plateforme");
-			http.authorizeRequests().antMatchers("/dashboard?level=2")
-					.hasRole("Administrateur association");
-			http.exceptionHandling().accessDeniedPage("/403");
-			http.logout().logoutRequestMatcher(new AntPathRequestMatcher("/login?logout"));
+			httpSec.formLogin().loginPage("/login")
+				.defaultSuccessUrl("/dashboard")
+				.failureUrl("/login?error")
+				.usernameParameter("username").passwordParameter("password")
+					.and()
+				.authorizeRequests()
+				.antMatchers("/dashboard", "/dashboard?*").hasRole("Administrateur plateforme")
+					.and()
+				.authorizeRequests()
+				.antMatchers("/dashboard_2", "dashboard_2?*").hasRole("Administrateur association")
+					.and()
+			    .exceptionHandling().accessDeniedPage("/403")
+			    	.and()
+			    .logout().logoutSuccessUrl("/login?logout"); 
+			
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
-		
+
 	}
 
 }
