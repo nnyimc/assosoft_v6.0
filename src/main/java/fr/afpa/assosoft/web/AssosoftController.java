@@ -127,6 +127,7 @@ public class AssosoftController {
 			traitementRecherches(model, listeCategories, localite,
 					categorie);
 			paginer(model, listeAsso, page);
+			gestionLiensNavBar(model, referer);
 			checkListStatus(listeAsso, model);
 			return "index";
 		} else if (!contenuRecherche.contentEquals("")) {
