@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 import lombok.AllArgsConstructor;
@@ -21,6 +22,8 @@ import lombok.ToString;
 import lombok.ToString.Exclude;
 
 @Entity
+@Table
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -39,42 +42,42 @@ public class Association implements Serializable {
 	private String assoTel;
 	@Column(length = 100)
 	private String assoUrl;
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = CascadeType.MERGE)
 	@JoinColumn(name = "statutId")
 	@NotNull
 	@ToString.Exclude
 	private Statut statut;
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = CascadeType.MERGE)
 	@JoinColumn(name = "villeId")
 	@NotNull
 	@ToString.Exclude
 	private Ville ville;
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = CascadeType.MERGE)
 	@JoinColumn(name = "catId")
 	@NotNull
 	@ToString.Exclude
 	private Categorie categorie;
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "personneId")
 	@NotNull
 	@ToString.Exclude
 	private Personne admin;
-	@OneToMany(mappedBy = "association", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "association", cascade = CascadeType.MERGE)
 	@ToString.Exclude
 	private Collection<Adhesion> adhesions;
-	@OneToMany(mappedBy = "association", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "association", cascade = CascadeType.MERGE)
 	@ToString.Exclude
 	private Collection<Offre> offres;
-	@OneToMany(mappedBy = "association", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "association", cascade = CascadeType.MERGE)
 	@ToString.Exclude
 	private Collection<Media> medias;
-	@OneToMany(mappedBy = "association", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "association", cascade = CascadeType.MERGE)
 	@ToString.Exclude
 	private Collection<LienReseau> liensReseau;
-	@OneToMany(mappedBy = "association", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "association", cascade = CascadeType.MERGE)
 	@ToString.Exclude
 	private Collection<Reference> references;
-	@OneToMany(mappedBy = "association", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "association", cascade = CascadeType.MERGE)
 	@ToString.Exclude
 	private Collection<Don> dons;
 }

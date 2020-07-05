@@ -10,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
@@ -20,6 +21,8 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 @Entity
+@Table
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -30,7 +33,7 @@ public class Role implements Serializable {
 	private Long roleId;
 	@Column(length = 50, nullable = false, unique = true)
 	private String roleIntitule;
-	@OneToMany(mappedBy = "role", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "role", cascade = CascadeType.MERGE)
 	@ToString.Exclude
 	// @JsonProperty(access = Access.WRITE_ONLY)
 	private Collection<Personne> personnes;

@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
@@ -20,6 +21,8 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 @Entity
+@Table
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -34,11 +37,11 @@ public class Media implements Serializable {
 	private String mediaUrl;
 	@Column(length = 100, nullable = false, unique = true)
 	private String mediaPath;
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = CascadeType.MERGE)
 	@JoinColumn(name = "personneId")
 	// @JsonProperty(access = Access.WRITE_ONLY)
 	private Personne personne;
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = CascadeType.MERGE)
 	@JoinColumn(name = "assoId")
 	// @JsonProperty(access = Access.WRITE_ONLY)
 	private Association association;

@@ -10,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -17,6 +18,8 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 @Entity
+@Table
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -27,14 +30,14 @@ public class Ville implements Serializable {
 	private Long villeId;
 	@Column(length = 100, nullable = false, unique = true)
 	private String villeNom;
-	@OneToMany(mappedBy = "ville", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "ville", cascade = CascadeType.MERGE)
 	@ToString.Exclude
 	// @JsonProperty(access = Access.WRITE_ONLY)
 	private Collection<Association> associations;
-	@OneToMany(mappedBy = "ville", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "ville", cascade = CascadeType.MERGE)
 	// @JsonProperty(access = Access.WRITE_ONLY)
 	private Collection<Personne> personnes;
-	@OneToMany(mappedBy = "ville", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "ville", cascade = CascadeType.MERGE)
 	// @JsonProperty(access = Access.WRITE_ONLY)
 	private Collection<Contact> contacts;
 

@@ -10,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -17,6 +18,8 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 @Entity
+@Table
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -31,7 +34,7 @@ public class ReseauSocial implements Serializable {
 	private String reseauNom;
 	
 	
-	@OneToMany(mappedBy = "reseauSocial", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "reseauSocial", cascade = CascadeType.MERGE)
 	private Collection<LienReseau> liensReseau;
 
 }

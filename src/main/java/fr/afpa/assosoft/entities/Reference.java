@@ -22,6 +22,8 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 @Entity
+@Table
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -31,12 +33,12 @@ public class Reference implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long referenceId;
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = CascadeType.MERGE)
 	@JoinColumn(name = "assoId")
 	@NotNull
 	// @JsonProperty(access = Access.WRITE_ONLY)
 	private Association association;
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = CascadeType.MERGE)
 	@JoinColumn(name = "contactId")
 	@NotNull
 	// @JsonProperty(access = Access.WRITE_ONLY)

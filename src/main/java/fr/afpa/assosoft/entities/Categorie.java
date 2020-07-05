@@ -10,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -20,6 +21,8 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 @Entity
+@Table
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -30,7 +33,7 @@ public class Categorie implements Serializable {
 	private Long catId;
 	@Column(length = 80, nullable = false, unique = true)
 	private String catIntitule;
-	@OneToMany(mappedBy = "categorie", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "categorie", cascade = CascadeType.MERGE)
 	// @JsonProperty(access = Access.WRITE_ONLY)
 	private Collection<Association> associations;
 

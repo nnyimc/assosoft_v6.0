@@ -11,7 +11,7 @@
 
 <!-- Custom styles for this template -->
 <link href="css/heroic-features.css" th:href="@{/vendor/bootstrap/css/bootstrap.min.css}" rel="stylesheet" />
-<title th:text="${assos.assoNom}+' - Details'"></title>
+<title th:text="${asso.assoNom}+' - Details'"></title>
 
 </head>
 
@@ -27,11 +27,11 @@
 			<div class="col-lg-6">
 
 				<!-- Title -->
-				<h1 class="mt-4" th:text="${assos.assoNom}"></h1>
+				<h1 class="mt-4" th:text="${asso.assoNom}"></h1>
 
 				<!-- Preview Image -->
 				<img id="imageAssoDetails" class="img-fluid rounded"
-					th:src="${assos.medias[0].mediaPath}" alt="">
+					th:src="${asso.medias[0].mediaPath}" alt="">
 
 				<!-- Post Content -->
 				<p class="lead">Lorem ipsum dolor sit amet, consectetur
@@ -74,24 +74,24 @@
 								<li>Num. RNA :</li>
 								<li>Email :</li>
 								<li>Tél :</li>
-								<li th:if="(${assos.assoUrl}!=null)" >URL :</li>
+								<li th:if="(${asso.assoUrl}!=null)" >URL :</li>
 								<li>Ville :</li>
 								<li>Admin :</li>
 							</ul>
 						</div>
 						<div class="col-lg-8">
 							<ul class="list-unstyled mb-0">
-								<li th:text="${assos.categorie.catIntitule}"></li>
-								<li th:text="${assos.assoNumRNA}"></li>
-								<li th:text="${assos.assoMail}"></li>
-								<li th:text="${assos.assoTel}"></li>
+								<li th:text="${asso.categorie.catIntitule}"></li>
+								<li th:text="${asso.assoNumRNA}"></li>
+								<li th:text="${asso.assoMail}"></li>
+								<li th:text="${asso.assoTel}"></li>
 								
-								<li th:if="(${assos.assoUrl}!=null)">
-									<a th:href="@{${assos.assoUrl}}" th:text="@{${assos.assoUrl}}"></a>
+								<li th:if="(${asso.assoUrl}!=null)">
+									<a th:href="@{${asso.assoUrl}}" th:text="@{${asso.assoUrl}}"></a>
 								</li>
 								
-								<li th:text="${assos.ville.villeNom}"></li>
-								<li th:text="${assos.admin.personneNom}"></li>
+								<li th:text="${asso.ville.villeNom}"></li>
+								<li th:text="${asso.admin.personneNom}"></li>
 							</ul>
 						</div>
 					</div>
@@ -105,13 +105,13 @@
 					<div class="row">
 						<div class="col-lg-7">
 							<ul class="list-unstyled mb-0">
-								<li th:each="offre:${assos.offres}" 
+								<li th:each="offre:${asso.offres}" 
 									th:text="${offre.proposition.propositionNom}+': '"></li>
 							</ul>
 						</div>
 						<div class="col-lg-5">
 							<ul class="list-unstyled mb-0">
-								<li th:each="offre:${assos.offres}" 
+								<li th:each="offre:${asso.offres}" 
 									th:text="${offre.proposition.propositionPrix}+'0€'"></li>
 							</ul>
 						</div>
@@ -126,14 +126,14 @@
 					<div class="row">
 						<div class="col-lg-4">
 							<ul class="list-unstyled mb-0">
-								<li th:each="lien:${assos.liensReseau}" 
+								<li th:each="lien:${asso.liensReseau}" 
 									th:text="${lien.reseauSocial.reseauNom}+': '"></li>
 							</ul>
 						</div>
 						<div class="col-lg-8">
 							<ul class="list-unstyled mb-0">
-								<li th:each="lien:${assos.liensReseau}">
-									<a th:href="@{${lien.lienReseauUrl}}" th:text="'@'+${assos.assoNom}"></a>
+								<li th:each="lien:${asso.liensReseau}">
+									<a th:href="@{${lien.lienReseauUrl}}" th:text="'@'+${asso.assoNom}"></a>
 								</li>
 							</ul>
 						</div>

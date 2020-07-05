@@ -29,7 +29,7 @@
 							</div>
 							<div class="col-lg-3 col-md-3 col-sm-12 p-0">
 								<select id="category" name="categorie">
-									<option value="">Catégorie</option>
+									<option  value="" th:value="''">Catégorie</option>
 									<option th:each="categorie:${listeCategories}"
 										th:value="${categorie.catIntitule}"
 										th:utext="${categorie.catIntitule}"
@@ -56,9 +56,9 @@
 			</li>
 			<li class="nav-item"><a class="nav-link" href="/inscription" th:href="@{/inscription}" th:if="${authValue} == 1">S'inscrire</a>
 			</li>
-			<li class="nav-item" th:if="${authValue} == 1 and ${!#strings.equals(referer,'http://localhost:8088/dashboard')}"><a class="nav-link" href="/login" th:href="@{/login}">Connexion</a>
+			<li class="nav-item" th:if="${authValue} == 1 and ${!#strings.startsWith(referer,'http://localhost:8088/dashboard')}"><a class="nav-link" href="/login" th:href="@{/login}">Connexion</a>
 			</li>
-			<li class="nav-item" th:if="${authValue} == 0 or ${#strings.equals(referer,'http://localhost:8088/dashboard')}"><a class="nav-link" href="/login?logout" th:href="@{/login?logout}">Déconnexion</a>
+			<li class="nav-item" th:if="${authValue} == 0 or ${#strings.startsWith(referer,'http://localhost:8088/dashboard')}"><a class="nav-link" href="/login?logout" th:href="@{/login?logout}">Déconnexion</a>
 			</li>
 		</ul>
 	</div>

@@ -90,6 +90,18 @@ public class AssosoftController {
 		}
 		return "index";
 	}
+	
+	private void gestionLiensNavBar(Model model, String referer) {
+		// Affichage du lien "Connexion-Deconnexion" dans la barre de navigation
+		int mode = 1;
+		model.addAttribute("authValue", mode);
+		
+		// La valeur du referer influe sur l'affichage du lien "Connexion-Deconnexion"
+		if(null == referer ) {
+			referer = "none";
+		}
+		model.addAttribute("referer", referer);
+	}
 
 	// Methode retournant une vue de la page d'accueil
 	@GetMapping({ "/", "/index" })
@@ -98,7 +110,7 @@ public class AssosoftController {
 			@RequestParam(name = "contenuRecherche", defaultValue = "") String contenuRecherche,
 			@RequestParam(name = "localite", defaultValue = "") String localite,
 			@RequestParam(name = "categorie", defaultValue = "") String categorie,
-			@RequestHeader(value = "referer", required = false) final String referer) {
+			@RequestHeader(value = "referer", required = false) String referer) {
 
 		// Initialisation de la page d'accueil
 		Page<Association> listeAsso = assoService.listerAsso(page - 1, 3);
@@ -128,29 +140,25 @@ public class AssosoftController {
 		}
 		paginer(model, listeAsso, page);
 		traitementRecherches(model);
-		
-		// Affichage du lien "Connexion-Deconnexion" dans la barre de navigation
-		int mode = 1;
-		model.addAttribute("authValue", mode);
-		
-		// La valeur du referer influe sur l'affichage du lien "Connexion-Deconnexion"
-		model.addAttribute("referer", referer);
+		gestionLiensNavBar(model, referer);
 		return "index";
 	}
 
 	@GetMapping({ "/inscription" })
-	public String afficherInscription(Model model) {
+	public String afficherInscription(Model model, 
+			@RequestHeader(value = "referer", required = false) String referer) {
 		traitementRecherches(model);
-		int mode = 1;
-		model.addAttribute("authValue", mode);
 		model.addAttribute("inscriptionAsso", new InscriptionAsso());
+		gestionLiensNavBar(model, referer);
 		return "inscription";
 	}
 	
 	
 	@GetMapping({ "/login" })
-	public String demarrerAuth(Model model, @RequestParam(required = false, name = "logout") String logout, 
-			HttpSession httpSession, SessionStatus status) {
+	public String demarrerAuth(Model model, 
+			@RequestParam(required = false, name = "logout") String logout, 
+			HttpSession httpSession, SessionStatus status,
+			@RequestHeader(value = "referer", required = false) String referer){
 		traitementRecherches(model);
 		if (logout != null){
 			// Indiquer que la session en cours est complète
@@ -160,9 +168,7 @@ public class AssosoftController {
 			httpSession.invalidate();
 			return "redirect:/";
 	    } 
-		
-		int mode = 1;
-		model.addAttribute("authValue", mode);
+		gestionLiensNavBar(model, referer);
 		return "login";	
 	}
 	
@@ -212,10 +218,12 @@ public class AssosoftController {
 
 	/* Méthode qui retourne un objet Association à la page assoDetail.html */
 	@GetMapping("/assoDetail")
-	public String assoDetail(Model model, Long id) {
+	public String assoDetail(Model model, Long id,
+			@RequestHeader(value = "referer", required = false) String referer) {
 		Association association = assoService.recupererAsso(id);
-		model.addAttribute("assos", association);
+		model.addAttribute("asso", association);
 		traitementRecherches(model);
+		gestionLiensNavBar(model, referer);
 		return "assoDetail";
 	}
 
@@ -230,10 +238,12 @@ public class AssosoftController {
 	}
 
 	@GetMapping("/formAdherent")
-	public String form(Model model, Long id) {
+	public String form(Model model, Long id,
+			@RequestHeader(value = "referer", required = false) String referer) {
 		Association association = assoService.recupererAsso(id);
 		model.addAttribute("assos", association);
 		model.addAttribute("pers", new Personne());
+		gestionLiensNavBar(model, referer);
 		traitementRecherches(model);
 		return "formAdherent";
 	}

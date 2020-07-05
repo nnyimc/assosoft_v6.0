@@ -23,6 +23,8 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 @Entity
+@Table
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -38,14 +40,14 @@ public class LienReseau implements Serializable {
 	private String lienReseauUrl;
 	
 	
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = CascadeType.MERGE)
 	@JoinColumn(name = "assoId")
 	@NotNull
 	// @JsonProperty(access = Access.WRITE_ONLY)
 	private Association association;
 	
 	
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = CascadeType.MERGE)
 	@JoinColumn(name = "reseauId")
 	@NotNull
 	// @JsonProperty(access = Access.WRITE_ONLY)

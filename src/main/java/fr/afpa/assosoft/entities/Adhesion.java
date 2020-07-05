@@ -27,6 +27,7 @@ import lombok.NoArgsConstructor;
 
 // Annotation JPA - permet de créer la table ADHESION comme une entité
 @Entity
+@Table(uniqueConstraints = @UniqueConstraint(columnNames = { "assoId", "personneId" }))
 
 /*
  * Annotations Lombok - permettent de générer les constructeurs de la classe et
@@ -35,7 +36,6 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(uniqueConstraints = @UniqueConstraint(columnNames = { "assoId", "personneId" }))
 public class Adhesion implements Serializable {
 
 	/*
@@ -47,14 +47,14 @@ public class Adhesion implements Serializable {
 	private Long adhesionId;
 
 	// Mise en place des cardinalités
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = CascadeType.MERGE)
 	@JoinColumn(name = "assoId")
 	@NotNull
 	// Annotation JSON - permet d'éviter les boucles infinies en lecture
 	// @JsonProperty(access = Access.WRITE_ONLY)
 	private Association association;
 
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = CascadeType.MERGE)
 	@JoinColumn(name = "personneId")
 	@NotNull
 	// @JsonProperty(access = Access.WRITE_ONLY)

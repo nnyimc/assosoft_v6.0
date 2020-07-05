@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import javax.validation.constraints.DecimalMax;
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotNull;
@@ -22,6 +23,8 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 @Entity
+@Table
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -47,12 +50,12 @@ public class Proposition implements Serializable {
 	private double propositionPrix;
 	
 	
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = CascadeType.MERGE)
 	@JoinColumn(name = "typePropositionId")
 	@NotNull
 	private TypeProp typeProp;
 	
 	
-	@OneToMany(mappedBy = "proposition", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "proposition", cascade = CascadeType.MERGE)
 	private Collection<Offre> offres;
 }

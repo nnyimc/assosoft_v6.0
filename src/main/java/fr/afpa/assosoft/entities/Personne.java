@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
@@ -27,6 +28,8 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 @Entity
+@Table
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -57,34 +60,34 @@ public class Personne implements Serializable {
 	@NotEmpty
 	@Email
 	private String personneMail;
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = CascadeType.MERGE)
 	@JoinColumn(name = "statutId")
 	@NotNull
 	@ToString.Exclude
 	private Statut statut;
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = CascadeType.MERGE)
 	@JoinColumn(name = "villeId")
 	@NotNull
 	@ToString.Exclude
 	private Ville ville;
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = CascadeType.MERGE)
 	@JoinColumn(name="roleId")
 	@NotNull
 	@ToString.Exclude
 	private Role role;
-	@OneToMany(mappedBy = "admin", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "admin", cascade = CascadeType.MERGE)
 	@ToString.Exclude
 	// @JsonProperty(access = Access.WRITE_ONLY)
 	private Collection<Association> associationsAdmin;
-	@OneToMany(mappedBy = "personne", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "personne", cascade = CascadeType.MERGE)
 	@ToString.Exclude
 	// @JsonProperty(access = Access.WRITE_ONLY)
 	private Collection<Adhesion> adhesions;
-	@OneToMany(mappedBy = "personne", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "personne", cascade = CascadeType.MERGE)
 	@ToString.Exclude
 	// @JsonProperty(access = Access.WRITE_ONLY)
 	private Collection<Media> medias;
-	@OneToMany(mappedBy = "personne", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "personne", cascade = CascadeType.MERGE)
 	@ToString.Exclude
 	// @JsonProperty(access = Access.WRITE_ONLY)
 	private Collection<Don> dons;

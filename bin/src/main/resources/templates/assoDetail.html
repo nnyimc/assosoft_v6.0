@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org">
 
 <head>
 
@@ -7,10 +7,10 @@
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <!-- Bootstrap core CSS -->
-<link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+<link href="vendor/bootstrap/css/bootstrap.min.css" th:href="@{/css/heroic-features.css}" rel="stylesheet" />
 
 <!-- Custom styles for this template -->
-<link href="css/heroic-features.css" rel="stylesheet" />
+<link href="css/heroic-features.css" th:href="@{/vendor/bootstrap/css/bootstrap.min.css}" rel="stylesheet" />
 <title th:text="${assos.assoNom}+' - Details'"></title>
 
 </head>
@@ -68,18 +68,18 @@
 				<h5 class="card-header">Informations</h5>
 				<div class="card-body">
 					<div class="row">
-						<div class="col-lg-5">
+						<div class="col-lg-4">
 							<ul class="list-unstyled mb-0">
 								<li>Catégorie :</li>
-								<li>NuméroRNA :</li>
+								<li>Num. RNA :</li>
 								<li>Email :</li>
-								<li>Téléphone :</li>
+								<li>Tél :</li>
 								<li th:if="(${assos.assoUrl}!=null)" >URL :</li>
 								<li>Ville :</li>
-								<li>Administrateur :</li>
+								<li>Admin :</li>
 							</ul>
 						</div>
-						<div class="col-lg-7">
+						<div class="col-lg-8">
 							<ul class="list-unstyled mb-0">
 								<li th:text="${assos.categorie.catIntitule}"></li>
 								<li th:text="${assos.assoNumRNA}"></li>
@@ -133,7 +133,7 @@
 						<div class="col-lg-8">
 							<ul class="list-unstyled mb-0">
 								<li th:each="lien:${assos.liensReseau}">
-									<a th:href="@{${lien.lienReseauUrl}}" th:text="${lien.lienReseauUrl}"></a>
+									<a th:href="@{${lien.lienReseauUrl}}" th:text="'@'+${assos.assoNom}"></a>
 								</li>
 							</ul>
 						</div>
