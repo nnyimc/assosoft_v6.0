@@ -21,8 +21,11 @@ import fr.afpa.assosoft.service.IAssosoftInitService;
 public class AssosoftApplication extends SpringBootServletInitializer implements CommandLineRunner {
 
 	// Annotation Spring - effectue l'injection des dépendances
-	@Autowired
-	IAssosoftInitService assosoftInitService;
+	final IAssosoftInitService assosoftInitService;
+
+	public AssosoftApplication(IAssosoftInitService assosoftInitService) {
+		this.assosoftInitService = assosoftInitService;
+	}
 
 	public static void main(String[] args) {
 		SpringApplication.run(AssosoftApplication.class, args);

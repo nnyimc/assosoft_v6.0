@@ -17,6 +17,10 @@ import org.springframework.security.web.session.HttpSessionEventPublisher;
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
+	public SecurityConfig(DataSource dataSource) {
+		this.dataSource = dataSource;
+	}
+
 	@Bean // Annotation Spring permettant l'accès à la méthode par l'ensemble des classes
 	BCryptPasswordEncoder getBCPE() {
 		return new BCryptPasswordEncoder();
@@ -28,8 +32,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	    return new HttpSessionEventPublisher();
 	}
 	
-	@Autowired
-	private DataSource dataSource;
+	private final DataSource dataSource;
 
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth)

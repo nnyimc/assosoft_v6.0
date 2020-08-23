@@ -50,43 +50,46 @@ import fr.afpa.assosoft.entities.Ville;
 @Transactional
 public class AssosoftInitServiceImpl implements IAssosoftInitService {
 
-	@Autowired
-	private StatutRepository statutRepo;
-	@Autowired
-	private VilleRepository villeRepo;
-	@Autowired
-	private CategorieRepository categorieRepo;
-	@Autowired
-	private RoleRepository roleRepo;
-	@Autowired
-	private TypeDonRepository typeDonRepo;
-	@Autowired
-	private ContactRepository contactRepo;
-	@Autowired
-	private PersonneRepository personneRepo;
-	@Autowired
-	private AssociationRepository associationRepo;
-	@Autowired
-	private ReferenceRepository referenceRepo;
-	@Autowired
-	private ReseauSocialRepository reseauSocialRepo;
-	@Autowired
-	private LienReseauRepository lienReseauRepo;
-	@Autowired
-	private DonRepository donRepo;
-	@Autowired
-	private AdhesionRepository adhesionRepo;
-	@Autowired
-	private MediaRepository mediaRepo;
-	@Autowired
-	private TypePropRepository typePropRepo;
-	@Autowired
-	private PropositionRepository propositionRepo;
-	@Autowired
-	private OffreRepository offreRepo;
+	private final StatutRepository statutRepo;
+	private final VilleRepository villeRepo;
+	private final CategorieRepository categorieRepo;
+	private final RoleRepository roleRepo;
+	private final TypeDonRepository typeDonRepo;
+	private final ContactRepository contactRepo;
+	private final PersonneRepository personneRepo;
+	private final AssociationRepository associationRepo;
+	private final ReferenceRepository referenceRepo;
+	private final ReseauSocialRepository reseauSocialRepo;
+	private final LienReseauRepository lienReseauRepo;
+	private final DonRepository donRepo;
+	private final AdhesionRepository adhesionRepo;
+	private final MediaRepository mediaRepo;
+	private final TypePropRepository typePropRepo;
+	private final PropositionRepository propositionRepo;
+	private final OffreRepository offreRepo;
 
-	@Autowired
-	BCryptPasswordEncoder bCPE;
+	private final BCryptPasswordEncoder bCPE;
+
+	public AssosoftInitServiceImpl(PersonneRepository personneRepo, StatutRepository statutRepo, VilleRepository villeRepo, CategorieRepository categorieRepo, RoleRepository roleRepo, TypeDonRepository typeDonRepo, ContactRepository contactRepo, AssociationRepository associationRepo, PropositionRepository propositionRepo, ReferenceRepository referenceRepo, ReseauSocialRepository reseauSocialRepo, OffreRepository offreRepo, BCryptPasswordEncoder bCPE, LienReseauRepository lienReseauRepo, DonRepository donRepo, TypePropRepository typePropRepo, AdhesionRepository adhesionRepo, MediaRepository mediaRepo) {
+		this.personneRepo = personneRepo;
+		this.statutRepo = statutRepo;
+		this.villeRepo = villeRepo;
+		this.categorieRepo = categorieRepo;
+		this.roleRepo = roleRepo;
+		this.typeDonRepo = typeDonRepo;
+		this.contactRepo = contactRepo;
+		this.associationRepo = associationRepo;
+		this.propositionRepo = propositionRepo;
+		this.referenceRepo = referenceRepo;
+		this.reseauSocialRepo = reseauSocialRepo;
+		this.offreRepo = offreRepo;
+		this.bCPE = bCPE;
+		this.lienReseauRepo = lienReseauRepo;
+		this.donRepo = donRepo;
+		this.typePropRepo = typePropRepo;
+		this.adhesionRepo = adhesionRepo;
+		this.mediaRepo = mediaRepo;
+	}
 
 	@Override
 	public void initStatuts() {
