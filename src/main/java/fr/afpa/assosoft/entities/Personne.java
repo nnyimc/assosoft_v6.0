@@ -3,17 +3,7 @@ package fr.afpa.assosoft.entities;
 import java.io.Serializable;
 import java.util.Collection;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.persistence.Transient;
+import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -36,6 +26,7 @@ import lombok.ToString;
 public class Personne implements Serializable {
 
 	@Id
+	@Column(name = "personne_id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long personneId;
 	@Column(length = 100, nullable = false)
@@ -60,18 +51,18 @@ public class Personne implements Serializable {
 	@NotEmpty
 	@Email
 	private String personneMail;
-	@ManyToOne(cascade = CascadeType.MERGE)
-	@JoinColumn(name = "statutId")
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "statut_id")
 	@NotNull
 	@ToString.Exclude
 	private Statut statut;
-	@ManyToOne(cascade = CascadeType.MERGE)
-	@JoinColumn(name = "villeId")
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "ville_id")
 	@NotNull
 	@ToString.Exclude
 	private Ville ville;
-	@ManyToOne(cascade = CascadeType.MERGE)
-	@JoinColumn(name="roleId")
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name="role_id")
 	@NotNull
 	@ToString.Exclude
 	private Role role;

@@ -26,6 +26,7 @@ import lombok.ToString;
 public class ReseauSocial implements Serializable {
 
 	@Id
+	@Column(name = "reseau_id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long reseauId;
 	

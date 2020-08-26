@@ -3,14 +3,7 @@ package fr.afpa.assosoft.entities;
 import java.io.Serializable;
 import java.util.Date;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -26,14 +19,15 @@ import lombok.ToString;
 public class Offre implements Serializable {
 
 	@Id
+	@Column(name = "offre_id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long offreId;
 	private Date dateDebut;
 	private Date dateFin;
-	@ManyToOne(cascade = CascadeType.MERGE)
-	@JoinColumn(name = "assoId")
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "asso_id")
 	private Association association;
-	@ManyToOne(cascade = CascadeType.MERGE)
-	@JoinColumn(name = "propositionId")
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "proposition_id")
 	private Proposition proposition;
 }

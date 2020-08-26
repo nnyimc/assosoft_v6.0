@@ -29,6 +29,7 @@ import lombok.ToString;
 public class Categorie implements Serializable {
 
 	@Id
+	@Column(name = "cat_id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long catId;
 	@Column(length = 80, nullable = false, unique = true)

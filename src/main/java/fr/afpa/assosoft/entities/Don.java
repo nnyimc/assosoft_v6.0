@@ -3,15 +3,7 @@ package fr.afpa.assosoft.entities;
 import java.io.Serializable;
 import java.util.Date;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -31,41 +23,32 @@ import lombok.ToString;
 public class Don implements Serializable {
 
 	@Id
+	@Column(name = "don_id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long donId;
-	
-	
 	@Column(length = 100)
 	private String donDescription;
-	
-	
 	private Date donDate;
-	
-	
-	@ManyToOne(cascade = CascadeType.MERGE)
-	@JoinColumn(name = "statutId")
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "statut_id")
 	@NotNull
 	// @JsonProperty(access = Access.WRITE_ONLY)
 	private Statut statut;
-	
-	
-	@ManyToOne(cascade = CascadeType.MERGE)
-	@JoinColumn(name = "typeDonId")
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "type_don_id")
 	@NotNull
 	private TypeDon typeDon;
-	
-	
-	@ManyToOne(cascade = CascadeType.MERGE)
-	@JoinColumn(name = "personneId")
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "personne_id")
 	@NotNull
 	@ToString.Exclude
 	// @JsonProperty(access = Access.WRITE_ONLY)
 	private Personne personne;
-	
-	
-	@ManyToOne(cascade = CascadeType.MERGE)
-	@JoinColumn(name = "assoId")
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "asso_id")
 	@NotNull
 	// @JsonProperty(access = Access.WRITE_ONLY)
 	private Association association;
+
+
 }

@@ -103,6 +103,16 @@ public class AssosoftController {
 		model.addAttribute("referer", referer);
 	}
 
+	// Méthode qui redirige vers le dashboard
+	private void accederDashboard(Model model, @RequestParam(name = "page", defaultValue = "1") int page) {
+		Page<Association> listeAsso = assoService.listerAsso(page - 1, 12);
+		int mode = 0;
+		model.addAttribute("authValue", mode);
+		model.addAttribute("listeAsso", listeAsso);
+		traitementRecherches(model);
+		paginer(model, listeAsso, page);
+	}
+
 	// Methode retournant une vue de la page d'accueil
 	@GetMapping({ "/", "/index" })
 	public String afficherHomepage(Model model,
@@ -113,13 +123,13 @@ public class AssosoftController {
 			@RequestHeader(value = "referer", required = false) String referer) {
 
 		// Initialisation de la page d'accueil
-		Page<Association> listeAsso = assoService.listerAsso(page - 1, 3);
+		Page<Association> listeAsso = assoService.listerAsso(page - 1, 6);
 		if (!localite.contentEquals("")) {
 			List<Categorie> listeCategories = assoService
 					.recupererCategoriesVille(localite);
 			if (!categorie.contentEquals("")) {
 				listeAsso = assoService.rechercherCategorieLocalite(localite,
-						categorie, page - 1, 3);
+						categorie, page - 1, 6);
 			} else {
 				listeAsso = assoService
 						.rechercherLocalite("%" + localite + "%", page - 1, 3);
@@ -132,7 +142,7 @@ public class AssosoftController {
 			return "index";
 		} else if (!contenuRecherche.contentEquals("")) {
 			listeAsso = assoService.rechercherNomCateg(
-					"%" + contenuRecherche + "%", page - 1, 3);
+					"%" + contenuRecherche + "%", page - 1, 6);
 			checkListStatus(listeAsso, model);
 		} else if (!categorie.contentEquals("")) {
 			listeAsso = assoService
@@ -158,8 +168,7 @@ public class AssosoftController {
 	@GetMapping({ "/login" })
 	public String demarrerAuth(Model model, 
 			@RequestParam(required = false, name = "logout") String logout, 
-			HttpSession httpSession, SessionStatus status,
-			@RequestHeader(value = "referer", required = false) String referer){
+			HttpSession httpSession, SessionStatus status){
 		traitementRecherches(model);
 		if (logout != null){
 			// Indiquer que la session en cours est complète
@@ -168,14 +177,17 @@ public class AssosoftController {
 			// Rendre la session invalide et détruire ses propriétés
 			httpSession.invalidate();
 			return "redirect:/";
-	    } 
-		gestionLiensNavBar(model, referer);
+	    }
 		return "login";	
 	}
 	
 	@PostMapping({"/login"})
-	public String traitementAuth(Model model) {
+	public String traitementAuth(
+			Model model,
+			@RequestHeader(value = "referer", required = false) String referer
+	) {
 		traitementRecherches(model);
+		gestionLiensNavBar(model, referer);
 		return "login";
 	}
 	
@@ -194,15 +206,16 @@ public class AssosoftController {
 		return "403";
 	}
 	
-	@GetMapping({ "/dashboard" })
+	@GetMapping({ "/dashboard"})
 	public String afficherDashboard(Model model, @RequestParam(name = "page", defaultValue = "1") int page) {
-		Page<Association> listeAsso = assoService.listerAsso(page - 1, 3);
-		int mode = 0;
-		model.addAttribute("authValue", mode);
-		model.addAttribute("listeAsso", listeAsso);
-		traitementRecherches(model);
-		paginer(model, listeAsso, page);
+		accederDashboard(model, page);
 		return "dashboard";
+	}
+
+	@GetMapping({ "/dashboard_2"})
+	public String afficherDashboard2(Model model, @RequestParam(name = "page", defaultValue = "1") int page) {
+		accederDashboard(model, page);
+		return "dashboard_2";
 	}
 
 	@PostMapping({ "/saveAssociation" })

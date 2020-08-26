@@ -26,6 +26,7 @@ import lombok.ToString;
 public class Ville implements Serializable {
 
 	@Id
+	@Column(name="ville_id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long villeId;
 	@Column(length = 100, nullable = false, unique = true)
@@ -35,9 +36,11 @@ public class Ville implements Serializable {
 	// @JsonProperty(access = Access.WRITE_ONLY)
 	private Collection<Association> associations;
 	@OneToMany(mappedBy = "ville", cascade = CascadeType.MERGE)
+	@ToString.Exclude
 	// @JsonProperty(access = Access.WRITE_ONLY)
 	private Collection<Personne> personnes;
 	@OneToMany(mappedBy = "ville", cascade = CascadeType.MERGE)
+	@ToString.Exclude
 	// @JsonProperty(access = Access.WRITE_ONLY)
 	private Collection<Contact> contacts;
 

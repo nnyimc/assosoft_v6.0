@@ -29,6 +29,7 @@ import lombok.ToString;
 public class Statut implements Serializable {
 
 	@Id
+	@Column(name="statut_id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long statutId;
 	@Column(length = 40, nullable = false, unique = true)
@@ -42,9 +43,11 @@ public class Statut implements Serializable {
 	// @JsonProperty(access = Access.WRITE_ONLY)
 	private Collection<Personne> personnes;
 	@OneToMany(mappedBy = "statut", cascade = CascadeType.MERGE)
+	@ToString.Exclude
 	// @JsonProperty(access = Access.WRITE_ONLY)
 	private Collection<Contact> contacts;
 	@OneToMany(mappedBy = "statut", cascade = CascadeType.MERGE)
+	@ToString.Exclude
 	// @JsonProperty(access = Access.WRITE_ONLY)
 	private Collection<Don> dons;
 

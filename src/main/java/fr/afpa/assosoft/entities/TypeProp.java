@@ -26,14 +26,13 @@ import lombok.ToString;
 public class TypeProp implements Serializable {
 
 	@Id
+	@Column(name = "type_proposition_id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long typePropositionId;
-	
-	
+
 	@Column(length = 80, nullable = false, unique = true)
 	private String typePropositionValeur;
-	
-	
+
 	@OneToMany(mappedBy = "typeProp", cascade = CascadeType.MERGE)
 	private Collection<Proposition> propositions;
 
