@@ -18,7 +18,7 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 @Entity
-@Table
+@Table(name = "type_prop")
 
 @Data
 @NoArgsConstructor

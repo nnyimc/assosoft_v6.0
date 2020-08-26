@@ -18,7 +18,7 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 @Entity
-@Table
+@Table(name = "reseau_social")
 
 @Data
 @NoArgsConstructor
