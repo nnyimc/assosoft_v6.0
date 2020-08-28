@@ -158,7 +158,12 @@ public class AssosoftInitServiceImpl implements IAssosoftInitService {
 					contact.setContactMail(
 							libelleCont.trim().toLowerCase() + "@gmail.com");
 					Statut statut = statutRepo.getOne((long) 1);
+			        Random rand = new Random();
+
+			        List<Ville> villes = villeRepo.findAll();
+					int k = rand.nextInt(villes.size()-1);
 					contact.setStatut(statut);
+					contact.setVille(villeRepo.getOne((long) k+1));
 					contactRepo.save(contact);
 				});
 	}
@@ -257,7 +262,7 @@ public class AssosoftInitServiceImpl implements IAssosoftInitService {
 	public void initReferences() {
 		List<Contact> contacts = contactRepo.findAll();
 		Random rand = new Random();
-		associationRepo.findAll().forEach(asso -> {
+		for (Association asso : associationRepo.findAll()) {
 			int k = rand.nextInt(contacts.size());
 			for (int i = 0; i < k; i++) {
 				Reference reference = new Reference();
@@ -265,7 +270,7 @@ public class AssosoftInitServiceImpl implements IAssosoftInitService {
 				reference.setContact(contacts.get(i));
 				referenceRepo.save(reference);
 			}
-		});
+		}
 	}
 
 	@Override
@@ -282,7 +287,7 @@ public class AssosoftInitServiceImpl implements IAssosoftInitService {
 	public void initLiensReseau() {
 		List<ReseauSocial> reseaux = reseauSocialRepo.findAll();
 		Random rand = new Random();
-		associationRepo.findAll().forEach(asso -> {
+		for (Association asso : associationRepo.findAll()) {
 			int k = rand.nextInt(reseaux.size());
 			for (int i = 0; i < k; i++) {
 				LienReseau lienReseau = new LienReseau();
@@ -294,7 +299,7 @@ public class AssosoftInitServiceImpl implements IAssosoftInitService {
 				lienReseau.setLienReseauUrl(url);
 				lienReseauRepo.save(lienReseau);
 			}
-		});
+		}
 
 	}
 

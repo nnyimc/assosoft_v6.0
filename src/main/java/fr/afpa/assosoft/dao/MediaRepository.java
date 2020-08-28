@@ -7,9 +7,20 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import fr.afpa.assosoft.entities.Media;
 
+import java.util.List;
+
 //@RepositoryRestResource
 @Repository
 public interface MediaRepository extends JpaRepository<Media, Long> {
-	@Query("SELECT m FROM Media m ORDER BY m.id DESC")
+	@Query("FROM Media m INNER JOIN FETCH m.association AS logo "
+	+"JOIN FETCH m.personne AS portrait")
+	public List<Media> findAll();
+
+	@Query(
+			value = "FROM Media m INNER JOIN FETCH m.association AS logo "
+			+"JOIN FETCH m.personne AS portrait ORDER BY m.mediaId DESC ",
+			countQuery = " FROM Media m INNER JOIN m.association AS logo "
+			+"JOIN FETCH m.personne AS portrait ORDER BY m.mediaId DESC "
+	)
 	public Page<Media> recupererDernierMedia(Pageable pageable);
 }

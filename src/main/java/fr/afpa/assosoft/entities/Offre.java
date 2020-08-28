@@ -11,7 +11,6 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 @Entity
-@Table
 
 @Data
 @NoArgsConstructor

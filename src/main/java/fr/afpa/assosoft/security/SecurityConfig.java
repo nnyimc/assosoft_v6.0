@@ -2,9 +2,13 @@ package fr.afpa.assosoft.security;
 
 import javax.sql.DataSource;
 
+import fr.afpa.assosoft.dao.PersonneRepository;
+import fr.afpa.assosoft.service.PersonneDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -28,68 +32,36 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				put("Adhérent", "/dashboard_3");
 			}};
 	private String role;
-	private final DataSource dataSource;
 
-	public SecurityConfig(DataSource dataSource) {
+	private final PersonneRepository personneRepository;
+	private final DataSource dataSource;
+	private final PersonneDetailsService personneDetailsService;
+
+	public SecurityConfig(DataSource dataSource, PersonneRepository personneRepository, PersonneDetailsService personneDetailsService) {
 		this.dataSource = dataSource;
+		this.personneRepository = personneRepository;
+		this.personneDetailsService = personneDetailsService;
 	}
+
 
 	@Bean
 	// Annotation Spring permettant l'accès à la méthode par l'ensemble des classes
 	BCryptPasswordEncoder getBCPE() {
 		return new BCryptPasswordEncoder();
 	}
-    
+
+	@Bean
+	DaoAuthenticationProvider authenticationProvider() {
+		DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
+		authenticationProvider.setUserDetailsService(personneDetailsService);
+		authenticationProvider.setPasswordEncoder(getBCPE());
+		return authenticationProvider;
+	}
+
 	@Bean 
 	//  Permet de signaler la fermeture de la session en cours au registre de Spring 
 	HttpSessionEventPublisher httpSessionEventPublisher() {
 	    return new HttpSessionEventPublisher();
-	}
-
-	private FormLoginConfigurer<HttpSecurity> setFormLogin(HttpSecurity httpSec,String role) {
-		FormLoginConfigurer<HttpSecurity> flc = null;
-		String landing = null;
-
-		try {
-
-			for (String value: roleToPath.keySet()) {
-				if (role.matches(value)) {
-					landing = roleToPath.get(value);
-				}
-			}
-
-			flc = httpSec.formLogin().loginPage("/login")
-					.defaultSuccessUrl(landing)
-					.failureUrl("/login?error")
-					.usernameParameter("username")
-					.passwordParameter("password");
-
-			defineAntMatchersAndRole(
-					flc,
-					landing,
-					role
-			);
-
-		} catch (Exception e ) {
-			e.printStackTrace();
-		}
-		return flc;
-	}
-
-	private void defineAntMatchersAndRole(
-					FormLoginConfigurer<HttpSecurity> flc,
-				    String url,
-				    String role
-			)
-	{
-		try {
-			flc.and().authorizeRequests()
-			.antMatchers(url, url+"?*")
-			.hasRole(role);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
 	}
 
 
@@ -104,7 +76,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			 * auth.inMemoryAuthentication().passwordEncoder(new BCryptPasswordEncoder());
 			 */
 			 
-			
+			/*
 			  auth.jdbcAuthentication()
 					  .dataSource(dataSource)
 					  .usersByUsernameQuery(
@@ -117,7 +89,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 					  )
 					  .rolePrefix("ROLE_")
 					  .passwordEncoder(getBCPE());
-			 
+			 */
+
+			auth.authenticationProvider(authenticationProvider());
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
@@ -139,14 +113,21 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			    .logout().logoutSuccessUrl("/login?logout");
 			*/
 
-			setFormLogin(httpSec, "Administrateur association")
-					.and()
-				.authorizeRequests()
-					.and()
-				.exceptionHandling().accessDeniedPage("/403")
-					.and()
-				.logout().logoutSuccessUrl("/login?logout");
-
+			httpSec.authorizeRequests()
+					.antMatchers("/dashboard", "/dashboard?*")
+					.hasAnyAuthority("Administrateur plateforme")
+					.antMatchers("/dashboard_2", "/dashboard_2?*")
+					.hasAnyAuthority("Administrateur association")
+					.antMatchers("/dashboard_3", "/dashboard_3?*")
+					.hasAnyAuthority("Adhérent")
+						.and()
+					.formLogin().loginPage("/login")
+					.failureUrl("/login?error")
+					.permitAll()
+						.and()
+					.logout().logoutSuccessUrl("/login?logout")
+						.and()
+					.exceptionHandling().accessDeniedPage("/403");
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}

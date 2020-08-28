@@ -3,14 +3,10 @@ package fr.afpa.assosoft.service;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -36,37 +32,44 @@ import fr.afpa.assosoft.entities.Role;
 import fr.afpa.assosoft.entities.Statut;
 import fr.afpa.assosoft.entities.Ville;
 
+
 @Service
 @Transactional
 public class AssociationServiceImpl implements IAssociationService {
 
-	@Autowired
-	private AssociationRepository assoRepository;
-	@Autowired
-	private VilleRepository villeRepository;
-	@Autowired
-	private CategorieRepository categorieRepository;
-	@Autowired
-	private RoleRepository roleRepository;
-	@Autowired
-	private StatutRepository statutRepository;
-	@Autowired
-	private PersonneRepository personneRepository;
-	@Autowired
-	private AdhesionRepository adhesionRepository;
-	@Autowired
-	private MediaRepository mediaRepository;
-	@Autowired
-	BCryptPasswordEncoder bPCE;
+	private final AssociationRepository assoRepository;
+	private final VilleRepository villeRepository;
+	private final CategorieRepository categorieRepository;
+	private final RoleRepository roleRepository;
+	private final StatutRepository statutRepository;
+	private final PersonneRepository personneRepository;
+	private final AdhesionRepository adhesionRepository;
+	private final MediaRepository mediaRepository;
+
+	final BCryptPasswordEncoder bPCE;
+
+	public AssociationServiceImpl(AssociationRepository assoRepository, VilleRepository villeRepository, CategorieRepository categorieRepository, RoleRepository roleRepository, StatutRepository statutRepository, PersonneRepository personneRepository, AdhesionRepository adhesionRepository, MediaRepository mediaRepository, BCryptPasswordEncoder bPCE) {
+		this.assoRepository = assoRepository;
+		this.villeRepository = villeRepository;
+		this.categorieRepository = categorieRepository;
+		this.roleRepository = roleRepository;
+		this.statutRepository = statutRepository;
+		this.personneRepository = personneRepository;
+		this.adhesionRepository = adhesionRepository;
+		this.mediaRepository = mediaRepository;
+		this.bPCE = bPCE;
+	}
 
 	private Media uploadImageAsso(MultipartFile retrievedFile)
 			throws IOException {
 		Media assoImage = new Media();
+
 		// Modification de l'url de la Photo
 		String[] fileNameArray = retrievedFile.getOriginalFilename()
 				.split("\\.");
 		assoImage.setMediaUrl(fileNameArray[0]);
 		String newUrl = assoImage.getMediaUrl();
+
 		// Copie du fichier dans le répertoire uploads
 		Files.write(
 				Paths.get(

@@ -13,12 +13,14 @@ import fr.afpa.assosoft.entities.Categorie;
 //@RepositoryRestResource
 @Repository
 public interface CategorieRepository extends JpaRepository<Categorie, Long> {
-	@Query("FROM Categorie c JOIN c.associations a GROUP BY c.catIntitule")
+	@Query("FROM Categorie c GROUP BY c.catIntitule")
 	public List<Categorie> rechercherCategorieNoms();
 
 	@Query("FROM Categorie c WHERE c.catIntitule = ?1")
 	public Categorie rechercherCategorieNom(String catIntitule);
 
-	@Query("FROM Categorie c JOIN c.associations a WHERE a.ville.villeNom LIKE :x GROUP BY c.catIntitule")
+	@Query("FROM Categorie c INNER JOIN FETCH c.associations a "
+			+ "WHERE a.ville.villeNom LIKE :x GROUP BY c.catIntitule")
 	public List<Categorie> rechercherCategoriesVille(@Param("x") String localite);
+
 }

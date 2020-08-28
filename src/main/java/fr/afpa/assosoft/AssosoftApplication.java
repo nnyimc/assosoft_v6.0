@@ -17,6 +17,9 @@ import org.springframework.boot.web.servlet.support.SpringBootServletInitializer
 
 import fr.afpa.assosoft.service.IAssosoftInitService;
 
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+
 @SpringBootApplication
 public class AssosoftApplication extends SpringBootServletInitializer implements CommandLineRunner {
 
@@ -33,23 +36,30 @@ public class AssosoftApplication extends SpringBootServletInitializer implements
 
 	@Override
 	public void run(String... args) throws Exception {
-		assosoftInitService.initStatuts();
 		assosoftInitService.initVilles();
+		assosoftInitService.initStatuts();
+		assosoftInitService.initReseauxSociaux();
 		assosoftInitService.initCategories();
 		assosoftInitService.initRoles();
+		assosoftInitService.initTypesProp();
+		assosoftInitService.initPropositions();
 		assosoftInitService.initTypesDons();
+
 		assosoftInitService.initContacts();
 		assosoftInitService.initPersonnes();
+
 		assosoftInitService.initAssociations();
-		assosoftInitService.initReferences();
-		assosoftInitService.initReseauxSociaux();
+		assosoftInitService.initMedias();
+		assosoftInitService.initOffres();
+
+
 		assosoftInitService.initLiensReseau();
 		assosoftInitService.initDons();
 		assosoftInitService.initAdhesions();
-		assosoftInitService.initMedias();
-		assosoftInitService.initTypesProp();
-		assosoftInitService.initPropositions();
-		assosoftInitService.initOffres();
+
+		assosoftInitService.initReferences();
+
+
 	}
 
 }

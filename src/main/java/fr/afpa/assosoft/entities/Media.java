@@ -3,17 +3,11 @@ package fr.afpa.assosoft.entities;
 import java.io.Serializable;
 
 import javax.persistence.*;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonProperty.Access;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
 
 @Entity
-@Table
 
 @Data
 @NoArgsConstructor
