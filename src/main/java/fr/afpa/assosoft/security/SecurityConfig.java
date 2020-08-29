@@ -4,21 +4,21 @@ import javax.sql.DataSource;
 
 import fr.afpa.assosoft.dao.PersonneRepository;
 import fr.afpa.assosoft.service.PersonneDetailsService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.authentication.AuthenticationProvider;
+
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.config.annotation.web.configurers.FormLoginConfigurer;
-import org.springframework.security.config.annotation.web.configurers.LogoutConfigurer;
+
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.session.HttpSessionEventPublisher;
 
 import java.util.HashMap;
+
 
 // Classe permettant de personnaliser Spring Security
 @Configuration
@@ -31,13 +31,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				put("Administrateur association", "/dashboard_2");
 				put("Adhérent", "/dashboard_3");
 			}};
-	private String role;
+
 
 	private final PersonneRepository personneRepository;
 	private final DataSource dataSource;
 	private final PersonneDetailsService personneDetailsService;
 
-	public SecurityConfig(DataSource dataSource, PersonneRepository personneRepository, PersonneDetailsService personneDetailsService) {
+	public SecurityConfig(
+						  DataSource dataSource,
+						  PersonneRepository personneRepository,
+						  PersonneDetailsService personneDetailsService) {
 		this.dataSource = dataSource;
 		this.personneRepository = personneRepository;
 		this.personneDetailsService = personneDetailsService;
@@ -64,7 +67,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	    return new HttpSessionEventPublisher();
 	}
 
-
+	@Bean
+	AuthenticationSuccessHandler successfulAuthenticationHandler() {
+		return new SuccessfulAuthenticationHandler();
+	}
 
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -113,17 +119,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			    .logout().logoutSuccessUrl("/login?logout");
 			*/
 
-			httpSec.authorizeRequests()
-					.antMatchers("/dashboard", "/dashboard?*")
-					.hasAnyAuthority("Administrateur plateforme")
-					.antMatchers("/dashboard_2", "/dashboard_2?*")
-					.hasAnyAuthority("Administrateur association")
-					.antMatchers("/dashboard_3", "/dashboard_3?*")
-					.hasAnyAuthority("Adhérent")
-						.and()
-					.formLogin().loginPage("/login")
+			httpSec.formLogin()
+					.loginPage("/login")
+					.successHandler(successfulAuthenticationHandler())
 					.failureUrl("/login?error")
-					.permitAll()
+					/*	.and()
+					.authorizeRequests()
+					.antMatchers("/dashboard", "/dashboard?*")
+					.hasAuthority("Administrateur plateforme")
+					.antMatchers("/dashboard_2", "/dashboard_2?*")
+					.hasAuthority("Administrateur association")
+					.antMatchers("/dashboard_3", "/dashboard_3?*")
+					.hasAuthority("Adhérent") */
 						.and()
 					.logout().logoutSuccessUrl("/login?logout")
 						.and()
@@ -133,5 +140,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		}
 
 	}
+
+
 
 }
