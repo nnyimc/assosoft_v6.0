@@ -75,7 +75,7 @@
 								<li>Email :</li>
 								<li>Tél :</li>
 								<li th:if="(${asso.assoUrl}!=null)" >URL :</li>
-								<li>Ville :</li>
+								<li>adresse :</li>
 								<li>Admin :</li>
 							</ul>
 						</div>
@@ -90,7 +90,7 @@
 									<a th:href="@{${asso.assoUrl}}" th:text="@{${asso.assoUrl}}"></a>
 								</li>
 								
-								<li th:text="${asso.ville.villeNom}"></li>
+								<li th:text="${asso.adresse.adresseNom}"></li>
 								<li th:text="${asso.admin.personneNom}"></li>
 							</ul>
 						</div>

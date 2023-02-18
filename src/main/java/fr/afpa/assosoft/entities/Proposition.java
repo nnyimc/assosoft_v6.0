@@ -19,32 +19,24 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class Proposition implements Serializable {
 
-	public Proposition(String propositionNom, double propositionPrix, TypeProp typeProp) {
-		propositionNom = this.propositionNom;
-		propositionPrix = this.propositionPrix;
-		typeProp = this.typeProp;
-	}
-
+	private static final long serialVersionUID = -7764228985417842643L;
+	
 	@Id
 	@Column(name = "proposition_id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long propositionId;
+	private Long id;
 	
-	
-	@Column(length = 100, nullable = false, unique = true)
-	private String propositionNom;
-	
+	@Column(name = "proposition_nom",length = 100, nullable = false, unique = true)
+	private String nom;
 	
 	@DecimalMin(value = "0.01", inclusive = true)
 	@DecimalMax(value = "9999.99", inclusive = true)
-	private double propositionPrix;
-	
+	private double prix;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "type_proposition_id")
 	@NotNull
-	private TypeProp typeProp;
-	
+	private TypeProposition typeProposition;
 	
 	@OneToMany(mappedBy = "proposition", cascade = CascadeType.MERGE)
 	private Collection<Offre> offres;

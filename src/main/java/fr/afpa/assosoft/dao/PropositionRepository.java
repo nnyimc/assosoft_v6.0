@@ -11,6 +11,6 @@ import java.util.List;
 //@RepositoryRestResource
 @Repository
 public interface PropositionRepository extends JpaRepository<Proposition, Long> {
-    @Query("FROM Proposition p INNER JOIN FETCH p.typeProp")
+    @Query("FROM Proposition p INNER JOIN FETCH p.typeProposition")
     public List<Proposition> findAll();
 }

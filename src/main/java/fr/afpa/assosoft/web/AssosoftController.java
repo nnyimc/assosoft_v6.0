@@ -27,7 +27,7 @@ import fr.afpa.assosoft.entities.Categorie;
 import fr.afpa.assosoft.entities.Personne;
 import fr.afpa.assosoft.entities.Role;
 import fr.afpa.assosoft.entities.Statut;
-import fr.afpa.assosoft.entities.Ville;
+import fr.afpa.assosoft.entities.Adresse;
 import fr.afpa.assosoft.service.IAssociationService;
 
 @Controller
@@ -44,7 +44,7 @@ public class AssosoftController {
 
 	private void traitementRecherches(Model model) {
 		String contenuRecherche = "", localite = "", categorie = "";
-		List<Ville> listeLocalites = assoService.recupererLocalites();
+		List<Adresse> listeLocalites = assoService.recupererLocalites();
 		List<Categorie> listeCategories = assoService
 				.recupererCategories();
 		model.addAttribute("contenuRecherche", contenuRecherche);
@@ -58,7 +58,7 @@ public class AssosoftController {
 			List<Categorie> listeCategories, String localite,
 			String categorie) {
 		String contenuRecherche = "";
-		List<Ville> listeLocalites = assoService.recupererLocalites();
+		List<Adresse> listeLocalites = assoService.recupererLocalites();
 		model.addAttribute("contenuRecherche", contenuRecherche);
 		model.addAttribute("localiteChoisie", localite);
 		model.addAttribute("categorieChoisie", categorie);
@@ -126,7 +126,7 @@ public class AssosoftController {
 		Page<Association> listeAsso = assoService.listerAsso(page - 1, 6);
 		if (!localite.contentEquals("")) {
 			List<Categorie> listeCategories = assoService
-					.recupererCategoriesVille(localite);
+					.recupererCategoriesadresse(localite);
 			if (!categorie.contentEquals("")) {
 				listeAsso = assoService.rechercherCategorieLocalite(localite,
 						categorie, page - 1, 6);
@@ -270,8 +270,8 @@ public class AssosoftController {
 		pers.setRole(roleadh);
 		Statut statutadh = assoService.recupererStatut(1L);
 		pers.setStatut(statutadh);
-		Ville ville = association.getVille();
-		pers.setVille(ville);
+		Adresse adresse = association.getAdresse();
+		pers.setAdresse(adresse);
 		model.addAttribute("assos", association);
 		model.addAttribute("pers", pers);
 		// if(bindingResult.hasErrors()) return "formAdherent";

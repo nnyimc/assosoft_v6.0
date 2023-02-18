@@ -15,15 +15,16 @@ import javax.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
 
 @Entity
-@Table(name = "type_prop")
+@Table(name = "type_proposition")
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class TypeProp implements Serializable {
+public class TypeProposition implements Serializable {
+
+	private static final long serialVersionUID = -119252794891219439L;
 
 	@Id
 	@Column(name = "type_proposition_id")
@@ -31,9 +32,9 @@ public class TypeProp implements Serializable {
 	private Long typePropositionId;
 
 	@Column(length = 80, nullable = false, unique = true)
-	private String typePropositionValeur;
+	private String typePropositionLibelle;
 
-	@OneToMany(mappedBy = "typeProp", cascade = CascadeType.MERGE)
+	@OneToMany(mappedBy = "typeProposition", cascade = CascadeType.MERGE)
 	private Collection<Proposition> propositions;
 
 }

@@ -21,21 +21,24 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 @Entity
+@Table(name = "role")
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class Role implements Serializable {
 
+	private static final long serialVersionUID = -5929455604162154304L;
 	@Id
 	@Column(name = "role_id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long roleId;
-	@Column(length = 50, nullable = false, unique = true)
-	private String roleIntitule;
+	private Long id;
+	
+	@Column(name = "role_nom",length = 50, nullable = false, unique = true)
+	private String nom;
+	
 	@OneToMany(mappedBy = "role", cascade = CascadeType.MERGE)
 	@ToString.Exclude
-	// @JsonProperty(access = Access.WRITE_ONLY)
 	private Collection<Personne> personnes;
 
 }

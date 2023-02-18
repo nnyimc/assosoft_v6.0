@@ -15,7 +15,6 @@ import javax.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
 
 @Entity
 @Table(name = "reseau_social")
@@ -25,17 +24,20 @@ import lombok.ToString;
 @AllArgsConstructor
 public class ReseauSocial implements Serializable {
 
+	private static final long serialVersionUID = 8747277722374657410L;
+
+
 	@Id
-	@Column(name = "reseau_id")
+	@Column(name = "reseau_social_id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long reseauId;
+	private Long id;
 	
 	
-	@Column(length = 100, nullable = false, unique = true)
-	private String reseauNom;
+	@Column(name = "reseau_social_nom", length = 100, nullable = false, unique = true)
+	private String nom;
 	
 	
 	@OneToMany(mappedBy = "reseauSocial", cascade = CascadeType.MERGE)
-	private Collection<LienReseau> liensReseau;
+	private Collection<LienReseauSocial> liens;
 
 }

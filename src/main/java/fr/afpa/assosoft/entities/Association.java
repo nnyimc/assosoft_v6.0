@@ -3,7 +3,16 @@ package fr.afpa.assosoft.entities;
 import java.io.Serializable;
 import java.util.Collection;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 
 import lombok.AllArgsConstructor;
@@ -19,55 +28,67 @@ import lombok.ToString;
 @AllArgsConstructor
 public class Association implements Serializable {
 
+	private static final long serialVersionUID = 3937504825502014354L;
+	
 	@Id
-	@Column(name ="asso_id")
+	@Column(name ="association_id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long assoId;
-	@Column(length = 100, nullable = false, unique = true)
-	private String assoNom;
-	@Column(length = 40, nullable = false, unique = true)
-	private String assoNumRNA;
-	@Column(length = 100, nullable = false, unique = true)
-	private String assoMail;
+	
+	private Long id;
+	
+	@Column(name ="association_nom", length = 100, nullable = false, unique = true)
+	private String nom;
+	
+	@Column(name ="association_numero_rna", length = 40, nullable = false, unique = true)
+	private String numRNA;
+	
+	@Column(name ="association_mail", length = 100, nullable = false, unique = true)
+	private String mail;
+	
 	@Column(length = 20, unique = true)
-	private String assoTel;
+	private String telephone;
+	
 	@Column(length = 100)
-	private String assoUrl;
+	private String url;
+	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "statut_id")
 	@NotNull
 	@ToString.Exclude
 	private Statut statut;
+	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "ville_id")
+	@JoinColumn(name = "adresse_id")
 	@NotNull
 	@ToString.Exclude
-	private Ville ville;
+	private Adresse adresse;
+	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "cat_id")
+	@JoinColumn(name = "categorie_id")
 	@NotNull
 	@ToString.Exclude
 	private Categorie categorie;
-	@ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "personne_id")
-	@NotNull
-	@ToString.Exclude
-	private Personne admin;
+	
 	@OneToMany(mappedBy = "association", cascade = CascadeType.MERGE)
 	@ToString.Exclude
 	private Collection<Adhesion> adhesions;
+	
 	@OneToMany(mappedBy = "association", cascade = CascadeType.MERGE)
 	@ToString.Exclude
 	private Collection<Offre> offres;
+	
 	@OneToMany(mappedBy = "association", cascade = CascadeType.MERGE)
 	@ToString.Exclude
 	private Collection<Media> medias;
+	
 	@OneToMany(mappedBy = "association", cascade = CascadeType.MERGE)
 	@ToString.Exclude
-	private Collection<LienReseau> liensReseau;
+	private Collection<LienReseauSocial> liensReseau;
+	
 	@OneToMany(mappedBy = "association", cascade = CascadeType.MERGE)
 	@ToString.Exclude
-	private Collection<Reference> references;
+	private Collection<ContactProfessionnel> contactsProfessinnels;
+	
 	@OneToMany(mappedBy = "association", cascade = CascadeType.MERGE)
 	@ToString.Exclude
 	private Collection<Don> dons;

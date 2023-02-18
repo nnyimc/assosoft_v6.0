@@ -3,11 +3,17 @@ package fr.afpa.assosoft.entities;
 import java.io.Serializable;
 import java.util.Date;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonProperty.Access;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -15,38 +21,44 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 @Entity
-
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class Don implements Serializable {
 
+	private static final long serialVersionUID = -7452081511447228183L;
+	
 	@Id
 	@Column(name = "don_id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long donId;
-	@Column(length = 100)
-	private String donDescription;
-	private Date donDate;
+	private Long id;
+	
+	@Column(name = "don_description", length = 100)
+	private String description;
+	
+	@Column(name = "don_date", nullable = false)
+	@Temporal( value= TemporalType.DATE)
+	private Date date;
+	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "statut_id")
 	@NotNull
-	// @JsonProperty(access = Access.WRITE_ONLY)
 	private Statut statut;
+	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "type_don_id")
 	@NotNull
 	private TypeDon typeDon;
+	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "personne_id")
 	@NotNull
 	@ToString.Exclude
-	// @JsonProperty(access = Access.WRITE_ONLY)
 	private Personne personne;
+	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "asso_id")
+	@JoinColumn(name = "association_id")
 	@NotNull
-	// @JsonProperty(access = Access.WRITE_ONLY)
 	private Association association;
 
 

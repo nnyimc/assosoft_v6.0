@@ -18,9 +18,9 @@ public interface MediaRepository extends JpaRepository<Media, Long> {
 
 	@Query(
 			value = "FROM Media m INNER JOIN FETCH m.association AS logo "
-			+"JOIN FETCH m.personne AS portrait ORDER BY m.mediaId DESC ",
+			+"JOIN FETCH m.personne AS portrait ORDER BY m.id DESC ",
 			countQuery = " FROM Media m INNER JOIN m.association AS logo "
-			+"JOIN FETCH m.personne AS portrait ORDER BY m.mediaId DESC "
+			+"JOIN FETCH m.personne AS portrait ORDER BY m.id DESC "
 	)
 	public Page<Media> recupererDernierMedia(Pageable pageable);
 }

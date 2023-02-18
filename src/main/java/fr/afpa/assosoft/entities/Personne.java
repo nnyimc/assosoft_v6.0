@@ -3,14 +3,21 @@ package fr.afpa.assosoft.entities;
 import java.io.Serializable;
 import java.util.Collection;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Transient;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonProperty.Access;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -24,74 +31,66 @@ import lombok.ToString;
 @AllArgsConstructor
 public class Personne implements Serializable {
 
+	private static final long serialVersionUID = 5214452032992777838L;
+
 	@Id
 	@Column(name = "personne_id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long personneId;
-	@Column(length = 100, nullable = false)
+	private Long id;
+	
+	@Column(name = "personne_nom", length = 200, nullable = false)
 	@NotEmpty
-	@Size(min = 2, max = 100)
-	private String personneNom;
-	@Column(length = 100, nullable = false)
+	@Size(min = 1, max = 200)
+	private String nom;
+	
+	@Column(name = "personne_prenom", length = 100, nullable = false)
 	@NotEmpty
-	@Size(min = 2, max = 100)
-	private String personnePrenom;
-	@Column(length = 100, nullable = false, unique = true)
+	@Size(min = 1, max = 100)
+	private String prenom;
+	
+	@Column(name = "personne_identifiant", length = 100, nullable = false, unique = true)
 	@NotEmpty
 	@Size(min = 5, max = 100)
-	private String personneLogin;
-	@Column(length = 20, nullable = false)
+	private String login;
+	
+	@Column(name = "personne_mot_de_passe",length = 20, nullable = false)
 	@NotEmpty
 	@Size(min = 8, max = 255)
-	private String personneMdp;
+	private String motDePasse;
+	
 	@Transient
-	private String personneMdpRepeat;
-	@Column(length = 100, nullable = false, unique = true)
+	private String motDePasseVerification;
+	
+	@Column(length = 200, nullable = false, unique = true)
 	@NotEmpty
 	@Email
-	private String personneMail;
+	private String email;
+	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "statut_id")
 	@NotNull
 	@ToString.Exclude
 	private Statut statut;
+	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "ville_id")
+	@JoinColumn(name = "adresse_id")
 	@NotNull
 	@ToString.Exclude
-	private Ville ville;
+	private Adresse adresse;
+	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="role_id")
 	@NotNull
 	@ToString.Exclude
 	private Role role;
-	@OneToMany(mappedBy = "admin", cascade = CascadeType.MERGE)
-	@ToString.Exclude
-	// @JsonProperty(access = Access.WRITE_ONLY)
-	private Collection<Association> associationsAdmin;
-	@OneToMany(mappedBy = "personne", cascade = CascadeType.MERGE)
-	@ToString.Exclude
-	// @JsonProperty(access = Access.WRITE_ONLY)
-	private Collection<Adhesion> adhesions;
-	@OneToMany(mappedBy = "personne", cascade = CascadeType.MERGE)
-	@ToString.Exclude
-	// @JsonProperty(access = Access.WRITE_ONLY)
-	private Collection<Media> medias;
-	@OneToMany(mappedBy = "personne", cascade = CascadeType.MERGE)
-	@ToString.Exclude
-	// @JsonProperty(access = Access.WRITE_ONLY)
-	private Collection<Don> dons;
 	
-	public Personne (String nom, String prenom, String login, String mdp,
-			String mail, Ville ville, Statut statut, Role role) {
-		personneNom = nom;
-		personnePrenom = prenom;
-		personneLogin = login;
-        personneMdp = mdp;
-        personneMail = mail;
-        this.ville = ville;
-        this.statut = statut;
-        this.role = role;
-	}
+	@OneToMany(mappedBy = "personne", cascade = CascadeType.MERGE)
+	private Collection<Adhesion> adhesions;
+	
+	@OneToMany(mappedBy = "personne", cascade = CascadeType.MERGE)
+	private Collection<Media> medias;
+	
+	@OneToMany(mappedBy = "personne", cascade = CascadeType.MERGE)
+	private Collection<Don> dons;
 
 }

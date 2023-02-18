@@ -14,23 +14,28 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class Media implements Serializable {
 
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@Column(name = "media_id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long mediaId;
-	@Column(length = 100, nullable = false, unique = true)
-	private String mediaTitre;
-	@Column(length = 100, nullable = false, unique = true)
-	private String mediaUrl;
-	@Column(length = 100, nullable = false, unique = true)
-	private String mediaPath;
+	private Long id;
+	
+	@Column(name = "media_titre", length = 100, nullable = false, unique = true)
+	private String titre;
+	
+	@Column(name = "media_url", length = 100, nullable = false, unique = true)
+	private String url;
+	
+	@Column(name = "media_path", length = 100, nullable = false, unique = true)
+	private String path;
+	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "personne_id")
-	// @JsonProperty(access = Access.WRITE_ONLY)
 	private Personne personne;
+	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "asso_id")
-	// @JsonProperty(access = Access.WRITE_ONLY)
+	@JoinColumn(name = "association_id")
 	private Association association;
 
 }

@@ -9,7 +9,7 @@ import org.springframework.web.multipart.MultipartFile;
 import fr.afpa.assosoft.beans.InscriptionAsso;
 import fr.afpa.assosoft.entities.Adhesion;
 import fr.afpa.assosoft.entities.Association;
-import fr.afpa.assosoft.entities.Ville;
+import fr.afpa.assosoft.entities.Adresse;
 import fr.afpa.assosoft.entities.Categorie;
 import fr.afpa.assosoft.entities.Personne;
 import fr.afpa.assosoft.entities.Role;
@@ -39,11 +39,11 @@ public interface IAssociationService {
 
 	public void saveAdherent(Personne personne);
 
-	public List<Ville> recupererLocalites();
+	public List<Adresse> recupererLocalites();
 
 	public List<Categorie> recupererCategories();
 
-	public List<Categorie> recupererCategoriesVille(String localite);
+	public List<Categorie> recupererCategoriesadresse(String localite);
 
 	public void saveAssociation(InscriptionAsso inscriptionAsso, MultipartFile file) throws IOException;
 

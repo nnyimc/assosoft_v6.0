@@ -12,42 +12,43 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonProperty.Access;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 @Entity
+@Table(name = "statut")
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class Statut implements Serializable {
 
+	private static final long serialVersionUID = -6856242653573705490L;
+
 	@Id
 	@Column(name="statut_id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long statutId;
+	private Long id;
+	
 	@Column(length = 40, nullable = false, unique = true)
-	private String statutValeur;
+	private String nom;
+	
 	@OneToMany(mappedBy = "statut", cascade = CascadeType.MERGE)
 	@ToString.Exclude
-	// @JsonProperty(access = Access.WRITE_ONLY)
 	private Collection<Association> associations;
+	
 	@OneToMany(mappedBy = "statut", cascade = CascadeType.MERGE)
 	@ToString.Exclude
-	// @JsonProperty(access = Access.WRITE_ONLY)
 	private Collection<Personne> personnes;
+	
 	@OneToMany(mappedBy = "statut", cascade = CascadeType.MERGE)
 	@ToString.Exclude
-	// @JsonProperty(access = Access.WRITE_ONLY)
-	private Collection<Contact> contacts;
+	private Collection<Prestataire> contacts;
+	
 	@OneToMany(mappedBy = "statut", cascade = CascadeType.MERGE)
 	@ToString.Exclude
-	// @JsonProperty(access = Access.WRITE_ONLY)
 	private Collection<Don> dons;
 
 }

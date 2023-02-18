@@ -21,9 +21,9 @@
 								<select id="locality" name="localite">
 									<option value="">Localité</option>
 									<option th:each="localite:${listeLocalites}"
-										th:value="${localite.villeNom}"
-										th:utext="${localite.villeNom}"
-										th:selected="(${localite.villeNom} == ${localiteChoisie})">
+										th:value="${localite.adresseNom}"
+										th:utext="${localite.adresseNom}"
+										th:selected="(${localite.adresseNom} == ${localiteChoisie})">
 									</option>
 								</select>
 							</div>

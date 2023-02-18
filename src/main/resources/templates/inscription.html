@@ -53,10 +53,10 @@
 								<input id="mail" type="email" class="form-control" th:field="*{personneMail}" required/>
 								<span th:errors="*{personneMail}"></span>
 							</div>
-							<div id="villeDivAdmin" class="form-group">
-								<label for="villeAdmin">Ville</label>
-								<input id="villeAdmin" type="text" class="form-control" th:field="*{villeAdmin.villeNom}" required/>
-								<span class="erreur" th:errors="*{villeAdmin.villeNom}"></span>
+							<div id="adresseDivAdmin" class="form-group">
+								<label for="adresseAdmin">adresse</label>
+								<input id="adresseAdmin" type="text" class="form-control" th:field="*{adresseAdmin.adresseNom}" required/>
+								<span class="erreur" th:errors="*{adresseAdmin.adresseNom}"></span>
 							</div>  
 						</fieldset>
 						<fieldset>
@@ -91,10 +91,10 @@
 								<input id="assoUrl" type="url" class="form-control" th:field="*{assoUrl}" required/>
 								<span class="erreur" th:errors="*{assoUrl}"></span>
 							</div>
-							<div id="villeDivAsso" class="form-group">
-								<label for="villeAsso">Ville</label>
-								<input id="villeAsso" type="text" class="form-control" th:field="*{villeAsso.villeNom}" required/>
-								<span class="erreur" th:errors="*{villeAsso.villeNom}"></span>
+							<div id="adresseDivAsso" class="form-group">
+								<label for="adresseAsso">adresse</label>
+								<input id="adresseAsso" type="text" class="form-control" th:field="*{adresseAsso.adresseNom}" required/>
+								<span class="erreur" th:errors="*{adresseAsso.adresseNom}"></span>
 							</div>  
 							<div id="categorie" class="form-group">
 								<label for="categorie">Catégorie</label>

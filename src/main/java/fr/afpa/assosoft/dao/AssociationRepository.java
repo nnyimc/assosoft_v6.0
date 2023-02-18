@@ -1,6 +1,7 @@
 package fr.afpa.assosoft.dao;
 
-import fr.afpa.assosoft.entities.Adhesion;
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -10,56 +11,49 @@ import org.springframework.stereotype.Repository;
 
 import fr.afpa.assosoft.entities.Association;
 
-import java.util.List;
-
 //@RepositoryRestResource
 @Repository
 public interface AssociationRepository
 		extends JpaRepository<Association, Long> {
 	@Query("select a "
 			+ "from Association a "
-			+ "inner join fetch a.ville "
+			+ "inner join fetch a.adresse "
 			+ "inner join fetch a.categorie "
-			+ "inner join fetch a.statut "
-			+ "inner join fetch a.admin")
+			+ "inner join fetch a.statut ")
 	public List<Association> findAll();
 
 	@Query(
 			value = "SELECT a "
 			+ "FROM Association a "
-			+ "inner join fetch a.admin "
 			+ "inner join fetch a.statut "
-			+ "inner join fetch a.ville "
+			+ "inner join fetch a.adresse "
 			+ "inner join fetch a.categorie cat "
-			+ "where cat.catIntitule "
-			+ "like :x or a.assoNom like :x",
+			+ "where cat.nom "
+			+ "like :x or a.nom like :x",
 
 			// Indispensable dans le cadre d'une pagination - fetching inutile
 			countQuery = "SELECT COUNT(a) "
 					+ "FROM Association a "
-			        + "inner join a.admin "
-					+ "inner join a.ville "
+					+ "inner join a.adresse "
 					+ "inner join a.categorie cat "
-					+ "where cat.catIntitule "
-			        + "like :x or a.assoNom like :x"
+					+ "where cat.nom "
+			        + "like :x or a.nom like :x"
 	)
 	public Page<Association> rechercherNomCateg(@Param("x") String rc,
 			Pageable pageable);
 
 	@Query(
 			value = "SELECT a FROM Association a "
-			+"inner join fetch a.ville "
-			+"inner join fetch a.admin "
+			+"inner join fetch a.adresse "
 			+"inner join fetch a.statut "
 			+"inner join fetch a.categorie "
-			+"where a.ville.villeNom like :x ",
+			+"where a.adresse.ville like :x ",
 
 			countQuery = "SELECT a FROM Association a "
-			+"inner join a.ville "
-			+"inner join a.admin "
+			+"inner join a.adresse "
 			+"inner join a.statut "
 			+"inner join a.categorie "
-			+"where a.ville.villeNom like :x"
+			+"where a.adresse.ville like :x"
 	)
 	public Page<Association> rechercheSelectLocalite(
 			@Param("x") String selectLocalite, Pageable pageable);
@@ -67,37 +61,33 @@ public interface AssociationRepository
 	@Query(
 			value = "SELECT a FROM Association a "
 			+"inner join fetch a.categorie "
-			+"inner join fetch a.admin "
-			+"inner join fetch a.ville "
+			+"inner join fetch a.adresse "
 			+"inner join fetch a.statut "
-			+"where a.categorie.catIntitule like :x ",
+			+"where a.categorie.nom like :x ",
 
 			countQuery = "SELECT a FROM Association a "
 			+"inner join a.categorie "
-			+"inner join a.admin "
-			+"inner join a.ville "
+			+"inner join a.adresse "
 			+"inner join a.statut "
-			+"where a.categorie.catIntitule like :x"
+			+"where a.categorie.nom like :x"
 	)
 	public Page<Association> rechercheSelectCategorie(
 			@Param("x") String selectCateg, Pageable pageable);
 
 	@Query(
 			value = "SELECT a FROM Association a "
-			+"inner join fetch a.ville "
+			+"inner join fetch a.adresse "
 			+"inner join fetch a.categorie "
 			+"inner join fetch a.statut "
-			+"inner join fetch a.admin "
-			+"where a.ville.villeNom "
-			+"like :x and a.categorie.catIntitule like :y ",
+			+"where a.adresse.ville "
+			+"like :x and a.categorie.nom like :y ",
 
 			countQuery = "SELECT a FROM Association a "
-			+ "inner join a.ville "
+			+ "inner join a.adresse "
 			+ "inner join a.categorie "
 			+ "inner join a.statut "
-			+ "inner join a.admin "
-			+ "where a.ville.villeNom "
-			+ "like :x and a.categorie.catIntitule like :y"
+			+ "where a.adresse.ville "
+			+ "like :x and a.categorie.nom like :y"
 
 	)
 	public Page<Association> rechercheSelectsCategLocalite(
@@ -106,18 +96,16 @@ public interface AssociationRepository
 
 	@Query(
 			value = "SELECT a FROM Association a "
-			+"inner join fetch a.admin "
-			+"inner join fetch a.ville "
+			+"inner join fetch a.adresse "
 			+"inner join fetch a.statut "
 			+"inner join fetch a.categorie "
-			+"ORDER BY a.assoId DESC ",
+			+"ORDER BY a.id DESC ",
 
 			countQuery = "SELECT a FROM Association a "
-			+"inner join a.admin "
 			+"inner join a.statut "
-			+"inner join a.ville "
+			+"inner join a.adresse "
 			+"inner join a.categorie "
-			+"ORDER BY a.assoId"
+			+"ORDER BY a.id"
 	)
 	public Page<Association> recupererDerniereAsso(Pageable pageable);
 }

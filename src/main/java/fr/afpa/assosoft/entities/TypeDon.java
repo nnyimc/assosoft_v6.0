@@ -12,13 +12,9 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonProperty.Access;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
 
 @Entity
 @Table(name = "type_don")
@@ -28,18 +24,20 @@ import lombok.ToString;
 @AllArgsConstructor
 public class TypeDon implements Serializable {
 
+	private static final long serialVersionUID = 1800307235756454468L;
+
+
 	@Id
 	@Column(name = "type_don_id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long typeDonId;
+	private Long id;
 	
 	
-	@Column(length = 20, nullable = false, unique = true)
-	private String typeDonDesc;
+	@Column(name = "type_don_nom", length = 20, nullable = false, unique = true)
+	private String nom;
 	
 	
 	@OneToMany(mappedBy = "typeDon", cascade = CascadeType.MERGE)
-	// @JsonProperty(access = Access.WRITE_ONLY)
 	private Collection<Don> dons;
 	
 }

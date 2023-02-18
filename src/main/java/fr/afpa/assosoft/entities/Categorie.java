@@ -17,20 +17,22 @@ import lombok.NoArgsConstructor;
 
 
 @Entity
-
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class Categorie implements Serializable {
 
+	private static final long serialVersionUID = 3625878441143846114L;
+	
 	@Id
-	@Column(name = "cat_id")
+	@Column(name = "categorie_id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long catId;
+	private Long id;
+	
 	@Column(length = 80, nullable = false, unique = true)
-	private String catIntitule;
+	private String nom;
+	
 	@OneToMany(mappedBy = "categorie", cascade = CascadeType.MERGE)
-	// @JsonProperty(access = Access.WRITE_ONLY)
 	private Collection<Association> associations;
 
 }

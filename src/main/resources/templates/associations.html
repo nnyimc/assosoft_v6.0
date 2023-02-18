@@ -11,7 +11,7 @@
 			<thead>
 				<tr>
 					<th>ID</th><th>Nom</th><th>Categorie</th><th>NumRNA</th><th>Email</th><th>Tel</th>
-					<th>Url</th><th>Ville</th><th>Admin</th><th>PhotoUrl</th><th>urlStatic</th><th>Photo</th>
+					<th>Url</th><th>adresse</th><th>Admin</th><th>PhotoUrl</th><th>urlStatic</th><th>Photo</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -23,7 +23,7 @@
 					<td th:text="${asso.assoMail}"></td>
 					<td th:text="${asso.assoTel}"></td>
 					<td th:text="${asso.assoUrl}"></td>
-					<td th:text="${asso.ville.villeNom}"></td>
+					<td th:text="${asso.adresse.adresseNom}"></td>
 					<td th:text="${asso.admin.personneNom}"></td>
 					<td th:text="${asso.medias[0].mediaUrl}"></td>
 					<td th:text="${asso.medias[0].mediaPath}"></td>

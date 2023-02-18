@@ -2,7 +2,6 @@ package fr.afpa.assosoft.dao;
 
 import java.util.List;
 
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -13,14 +12,14 @@ import fr.afpa.assosoft.entities.Categorie;
 //@RepositoryRestResource
 @Repository
 public interface CategorieRepository extends JpaRepository<Categorie, Long> {
-	@Query("FROM Categorie c GROUP BY c.catIntitule")
+	@Query("FROM Categorie c GROUP BY c.nom")
 	public List<Categorie> rechercherCategorieNoms();
 
-	@Query("FROM Categorie c WHERE c.catIntitule = ?1")
+	@Query("FROM Categorie c WHERE c.nom = ?1")
 	public Categorie rechercherCategorieNom(String catIntitule);
 
 	@Query("FROM Categorie c INNER JOIN FETCH c.associations a "
-			+ "WHERE a.ville.villeNom LIKE :x GROUP BY c.catIntitule")
-	public List<Categorie> rechercherCategoriesVille(@Param("x") String localite);
+			+ "WHERE a.adresse.ville LIKE :x GROUP BY c.nom")
+	public List<Categorie> rechercherCategoriesadresse(@Param("x") String localite);
 
 }

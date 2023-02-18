@@ -7,7 +7,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import fr.afpa.assosoft.entities.Categorie;
 import fr.afpa.assosoft.entities.Media;
-import fr.afpa.assosoft.entities.Ville;
+import fr.afpa.assosoft.entities.Adresse;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -39,7 +39,7 @@ public class InscriptionAsso {
 	private String personneMail;
 
 	@NotNull
-	private Ville villeAdmin;
+	private Adresse adresseAdmin;
 
 	@NotEmpty
 	private String assoNom;
@@ -57,7 +57,7 @@ public class InscriptionAsso {
 	private String assoUrl;
 
 	@NotNull
-	private Ville villeAsso;
+	private Adresse adresseAsso;
 
 	@NotNull
 	private Categorie categorieAsso;

@@ -15,15 +15,15 @@ public interface PersonneRepository extends JpaRepository<Personne, Long> {
     @Query(
             "FROM Personne p "
             +"INNER JOIN FETCH p.statut "
-            +"INNER JOIN FETCH p.ville INNER JOIN FETCH p.role "
-            +"WHERE p.personneLogin LIKE :x"
+            +"INNER JOIN FETCH p.adresse INNER JOIN FETCH p.role "
+            +"WHERE p.login LIKE :x"
     )
     public Personne findByPersonneLogin(@Param("x")String login);
 
     @Query(
             "FROM Personne p "
             +"INNER JOIN FETCH p.statut "
-            +"INNER JOIN FETCH p.ville INNER JOIN FETCH p.role "
+            +"INNER JOIN FETCH p.adresse INNER JOIN FETCH p.role "
     )
     public List<Personne> findAll();
 }
