@@ -29,7 +29,7 @@ public class Categorie implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@Column(length = 80, nullable = false, unique = true)
+	@Column(name = "categorie_nom", length = 80, nullable = false, unique = true)
 	private String nom;
 	
 	@OneToMany(mappedBy = "categorie", cascade = CascadeType.MERGE)

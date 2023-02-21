@@ -32,7 +32,7 @@ public class TypeProposition implements Serializable {
 	private Long typePropositionId;
 
 	@Column(length = 80, nullable = false, unique = true)
-	private String typePropositionLibelle;
+	private String typePropositionNom;
 
 	@OneToMany(mappedBy = "typeProposition", cascade = CascadeType.MERGE)
 	private Collection<Proposition> propositions;
