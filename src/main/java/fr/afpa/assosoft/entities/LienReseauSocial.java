@@ -28,12 +28,11 @@ public class LienReseauSocial implements Serializable {
 	private static final long serialVersionUID = -1283812198989860821L;
 
 	@Id
-	@Column(name = "lien_reseau_social_id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
 	
-	@Column(name = "lien_reseau_social_url", length = 250, nullable = false, unique = true)
+	@Column(length = 250, nullable = false, unique = true)
 	private String url;
 	
 	

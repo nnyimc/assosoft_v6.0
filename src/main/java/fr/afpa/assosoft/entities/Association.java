@@ -31,18 +31,17 @@ public class Association implements Serializable {
 	private static final long serialVersionUID = 3937504825502014354L;
 	
 	@Id
-	@Column(name ="association_id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	
 	private Long id;
 	
-	@Column(name ="association_nom", length = 100, nullable = false, unique = true)
+	@Column(length = 100, nullable = false, unique = true)
 	private String nom;
 	
-	@Column(name ="association_numero_rna", length = 40, nullable = false, unique = true)
+	@Column(length = 40, nullable = false, unique = true)
 	private String numRNA;
 	
-	@Column(name ="association_mail", length = 100, nullable = false, unique = true)
+	@Column(length = 100, nullable = false, unique = true)
 	private String mail;
 	
 	@Column(length = 20, unique = true)

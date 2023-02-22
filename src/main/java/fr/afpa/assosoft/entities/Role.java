@@ -30,11 +30,10 @@ public class Role implements Serializable {
 
 	private static final long serialVersionUID = -5929455604162154304L;
 	@Id
-	@Column(name = "role_id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@Column(name = "role_nom",length = 50, nullable = false, unique = true)
+	@Column(length = 50, nullable = false, unique = true)
 	private String nom;
 	
 	@OneToMany(mappedBy = "role", cascade = CascadeType.MERGE)

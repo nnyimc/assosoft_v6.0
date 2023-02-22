@@ -25,11 +25,10 @@ public class Categorie implements Serializable {
 	private static final long serialVersionUID = 3625878441143846114L;
 	
 	@Id
-	@Column(name = "categorie_id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@Column(name = "categorie_nom", length = 80, nullable = false, unique = true)
+	@Column(length = 80, nullable = false, unique = true)
 	private String nom;
 	
 	@OneToMany(mappedBy = "categorie", cascade = CascadeType.MERGE)

@@ -28,7 +28,6 @@ public class Offre implements Serializable {
 	private static final long serialVersionUID = 297852890447087671L;
 
 	@Id
-	@Column(name = "offre_id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	

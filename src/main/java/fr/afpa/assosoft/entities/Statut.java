@@ -28,7 +28,6 @@ public class Statut implements Serializable {
 	private static final long serialVersionUID = -6856242653573705490L;
 
 	@Id
-	@Column(name="statut_id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	

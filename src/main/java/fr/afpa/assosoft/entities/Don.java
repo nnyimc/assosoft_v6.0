@@ -29,14 +29,13 @@ public class Don implements Serializable {
 	private static final long serialVersionUID = -7452081511447228183L;
 	
 	@Id
-	@Column(name = "don_id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@Column(name = "don_description", length = 100)
+	@Column(length = 100)
 	private String description;
 	
-	@Column(name = "don_date", nullable = false)
+	@Column(nullable = false)
 	@Temporal( value= TemporalType.DATE)
 	private Date date;
 	

@@ -28,12 +28,11 @@ public class TypeDon implements Serializable {
 
 
 	@Id
-	@Column(name = "type_don_id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
 	
-	@Column(name = "type_don_nom", length = 20, nullable = false, unique = true)
+	@Column(length = 20, nullable = false, unique = true)
 	private String nom;
 	
 	

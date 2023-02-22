@@ -28,12 +28,11 @@ public class ReseauSocial implements Serializable {
 
 
 	@Id
-	@Column(name = "reseau_social_id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
 	
-	@Column(name = "reseau_social_nom", length = 100, nullable = false, unique = true)
+	@Column(length = 100, nullable = false, unique = true)
 	private String nom;
 	
 	

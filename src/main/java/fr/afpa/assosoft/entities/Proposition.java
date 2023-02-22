@@ -22,11 +22,10 @@ public class Proposition implements Serializable {
 	private static final long serialVersionUID = -7764228985417842643L;
 	
 	@Id
-	@Column(name = "proposition_id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@Column(name = "proposition_nom",length = 100, nullable = false, unique = true)
+	@Column(length = 100, nullable = false, unique = true)
 	private String nom;
 	
 	@DecimalMin(value = "0.01", inclusive = true)

@@ -26,7 +26,6 @@ public class ContactProfessionnel implements Serializable {
 	private static final long serialVersionUID = -41540833863429124L;
 
 	@Id
-	@Column(name = "contact_professionnel_id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	

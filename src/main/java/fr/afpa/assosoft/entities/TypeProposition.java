@@ -27,12 +27,11 @@ public class TypeProposition implements Serializable {
 	private static final long serialVersionUID = -119252794891219439L;
 
 	@Id
-	@Column(name = "type_proposition_id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long typePropositionId;
+	private Long id;
 
 	@Column(length = 80, nullable = false, unique = true)
-	private String typePropositionNom;
+	private String nom;
 
 	@OneToMany(mappedBy = "typeProposition", cascade = CascadeType.MERGE)
 	private Collection<Proposition> propositions;

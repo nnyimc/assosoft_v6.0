@@ -37,7 +37,6 @@ public class Adhesion implements Serializable {
 	 * de la valeur de l'id
 	 */
 	@Id
-	@Column(name = "adhesion_id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 

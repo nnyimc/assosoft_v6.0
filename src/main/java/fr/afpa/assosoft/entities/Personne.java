@@ -34,26 +34,25 @@ public class Personne implements Serializable {
 	private static final long serialVersionUID = 5214452032992777838L;
 
 	@Id
-	@Column(name = "personne_id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@Column(name = "personne_nom", length = 200, nullable = false)
+	@Column(length = 200, nullable = false)
 	@NotEmpty
 	@Size(min = 1, max = 200)
 	private String nom;
 	
-	@Column(name = "personne_prenom", length = 100, nullable = false)
+	@Column(length = 100, nullable = false)
 	@NotEmpty
 	@Size(min = 1, max = 100)
 	private String prenom;
 	
-	@Column(name = "personne_identifiant", length = 100, nullable = false, unique = true)
+	@Column(length = 100, nullable = false, unique = true)
 	@NotEmpty
 	@Size(min = 5, max = 100)
 	private String login;
 	
-	@Column(name = "personne_mot_de_passe",length = 20, nullable = false)
+	@Column(length = 20, nullable = false)
 	@NotEmpty
 	@Size(min = 8, max = 255)
 	private String motDePasse;

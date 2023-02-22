@@ -29,14 +29,13 @@ public class Prestataire implements Serializable {
 	private static final long serialVersionUID = 7709081051345694894L;
 
 	@Id
-	@Column(name = "prestataire_id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@Column(name = "prestataire_nom", length = 100, nullable = false, unique = true)
+	@Column(length = 100, nullable = false, unique = true)
 	private String nom;
 	
-	@Column(name = "prestataire_email", length = 100, nullable = false, unique = true)
+	@Column(length = 100, nullable = false, unique = true)
 	private String email;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
